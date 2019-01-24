@@ -39,6 +39,7 @@ public class InterfazRegistroEmpleado extends javax.swing.JFrame {
         TXTEPASSWORD = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -103,9 +104,13 @@ public class InterfazRegistroEmpleado extends javax.swing.JFrame {
         jButton1.setBounds(273, 182, 55, 23);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/car-rental.jpg"))); // NOI18N
-        jLabel6.setText("jLabel6");
+        jLabel6.setText("VALES VERG TUTO");
         getContentPane().add(jLabel6);
         jLabel6.setBounds(0, 0, 400, 300);
+
+        jLabel7.setText("jLabel7");
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(70, 260, 34, 14);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -175,5 +180,6 @@ public class InterfazRegistroEmpleado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
 }
