@@ -35,6 +35,7 @@ public class InterfazLogIn extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         btnIngresar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         lblFondoUser = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
@@ -101,7 +102,11 @@ public class InterfazLogIn extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSalir);
-        btnSalir.setBounds(240, 380, 90, 23);
+        btnSalir.setBounds(200, 380, 90, 23);
+
+        jButton1.setText("REGISTRAR EMPLEADO");
+        getContentPane().add(jButton1);
+        jButton1.setBounds(340, 380, 80, 23);
 
         lblFondoUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/imagen/fondo user.jpg"))); // NOI18N
         getContentPane().add(lblFondoUser);
@@ -116,7 +121,8 @@ public class InterfazLogIn extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-
+            String usuario=txtUsuario.getText();
+            String password = new String(txtPassword.getPassword());
         if(txtUsuario.getText().equals(usuario) & txtPassword.getText().equals(password)){ 
             InterfazEmpleado interfazEmpleado = new InterfazEmpleado();
         interfazEmpleado.setVisible(true);
@@ -170,6 +176,7 @@ public class InterfazLogIn extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
