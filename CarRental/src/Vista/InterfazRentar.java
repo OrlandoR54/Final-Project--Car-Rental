@@ -61,6 +61,8 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.setBounds(163, 10, 89, 23);
+		btnBuscar.addActionListener(this);
+		btnBuscar.setActionCommand("btnBuscar");
 		contentPane.add(btnBuscar);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
@@ -128,10 +130,14 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		
 		btnRegistrar = new JButton("Registrar");
 		btnRegistrar.setBounds(10, 184, 89, 23);
+		btnRegistrar.addActionListener(this);
+		btnRegistrar.setActionCommand("btnRegistrar");
 		contentPane.add(btnRegistrar);
 		
 		btnRentar = new JButton("Rentar");
 		btnRentar.setBounds(120, 184, 89, 23);
+		btnRentar.addActionListener(this);
+		btnRentar.setActionCommand("btnRentar");
 		contentPane.add(btnRentar);
 		
 	
