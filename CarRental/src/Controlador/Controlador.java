@@ -5,7 +5,13 @@
  */
 package Controlador;
 
-
+import modelo.Catalogo_Vehiculo;
+import modelo.Cliente;
+import modelo.Contrato;
+import modelo.FacturaCabecera;
+import modelo.FacturaDetalle;
+import modelo.Usuario;
+import modelo.Vehiculo;
 
 /**
  *
@@ -13,7 +19,12 @@ package Controlador;
  */
 public class Controlador {
  
-    
-    
+    private Vehiculo vehiculo;
+    private Usuario usuario;
+    private Cliente cliente;
+    private Catalogo_Vehiculo catalogo;
+    private Contrato contrato;
+    private FacturaCabecera facturaCabecera;
+    private FacturaDetalle facturaDetalle;
  
 }
