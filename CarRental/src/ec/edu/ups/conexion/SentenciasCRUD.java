@@ -58,22 +58,25 @@ public class SentenciasCRUD {
      * @param regionID Identificador de la region 
      * 
      */
-    public void InsertarPais(Conexion con, String countryID, String countryName, int regionID){
+    public void InsertarEmpleado(Conexion con, String nombre, String apellido, String cedula,String usuario, String pasword){
         try{
-            String sentenciaInsercion = "INSERT INTO Countries VALUES "
-                    + "(?,?,?)";
+            String sentenciaInsercion = "begin P_INSERTAR_EMPLEADO(?,?,?,?,?);  END;  ";
+                    
             psentencia = con.getConexion().prepareStatement(sentenciaInsercion);
-            psentencia.setString(1, countryID);
-            psentencia.setString(2, countryName);
-            psentencia.setInt(3, regionID);
+            psentencia.setString(1, nombre);
+            psentencia.setString(2, apellido);
+            psentencia.setString(3, cedula);
+            psentencia.setString(4, usuario);
+            psentencia.setString(5, pasword);
             
             //Se ejecuta la sentencia de INSERT
-            psentencia.executeUpdate();
+            psentencia.execute();
             
         }
         catch(SQLException e){
             e.printStackTrace();
         }
+    
     }
     
     /**
