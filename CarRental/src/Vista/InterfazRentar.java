@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JComboBox;
 
 public class InterfazRentar extends JFrame implements ActionListener {
 
@@ -21,13 +22,14 @@ public class InterfazRentar extends JFrame implements ActionListener {
 	private JTextField txtApellido;
 	private JTextField txtLicencia;
 	private JTextField txtCedula;
-	private JTextField txtTelefono;
 	private JTextField txtDireccion;
-	private JTextField textField;
 	
 	private JButton btnBuscar; 
 	private JButton btnRentar;
 	private JButton btnRegistrar;
+	private JTextField txtfecha_Expiracion;
+	private JTextField txttarjeta;
+	private JTextField txttitular;
 
 	/**
 	 * Launch the application.
@@ -50,7 +52,7 @@ public class InterfazRentar extends JFrame implements ActionListener {
 	 */
 	public InterfazRentar() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 526, 300);
+		setBounds(100, 100, 526, 386);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -73,12 +75,8 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		lblApellido.setBounds(10, 85, 61, 14);
 		contentPane.add(lblApellido);
 		
-		JLabel lblLicencia = new JLabel("Licencia: ");
-		lblLicencia.setBounds(10, 110, 61, 14);
-		contentPane.add(lblLicencia);
-		
 		JLabel lblCedula = new JLabel("Cedula: ");
-		lblCedula.setBounds(10, 135, 61, 14);
+		lblCedula.setBounds(10, 110, 61, 14);
 		contentPane.add(lblCedula);
 		
 		txtNombre = new JTextField();
@@ -92,53 +90,98 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		txtApellido.setColumns(10);
 		
 		txtLicencia = new JTextField();
-		txtLicencia.setBounds(81, 107, 128, 20);
+		txtLicencia.setBounds(105, 171, 147, 20);
 		contentPane.add(txtLicencia);
 		txtLicencia.setColumns(10);
 		
 		txtCedula = new JTextField();
-		txtCedula.setBounds(81, 132, 128, 20);
+		txtCedula.setBounds(81, 107, 128, 20);
 		contentPane.add(txtCedula);
 		txtCedula.setColumns(10);
 		
-		JLabel lblTelefono = new JLabel("Telefono: ");
-		lblTelefono.setBounds(252, 60, 56, 14);
-		contentPane.add(lblTelefono);
-		
-		txtTelefono = new JTextField();
-		txtTelefono.setBounds(328, 57, 128, 20);
-		contentPane.add(txtTelefono);
-		txtTelefono.setColumns(10);
-		
 		JLabel lblDireccion = new JLabel("Direccion: ");
-		lblDireccion.setBounds(252, 85, 66, 14);
+		lblDireccion.setBounds(272, 60, 66, 14);
 		contentPane.add(lblDireccion);
 		
 		txtDireccion = new JTextField();
-		txtDireccion.setBounds(328, 82, 128, 20);
+		txtDireccion.setBounds(348, 57, 128, 20);
 		contentPane.add(txtDireccion);
 		txtDireccion.setColumns(10);
 		
-		JLabel lblTarjeta = new JLabel("Tarjeta: ");
-		lblTarjeta.setBounds(252, 110, 46, 14);
-		contentPane.add(lblTarjeta);
-		
-		textField = new JTextField();
-		textField.setBounds(328, 107, 128, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
 		btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(10, 184, 89, 23);
+		btnRegistrar.setBounds(10, 313, 89, 23);
 		btnRegistrar.addActionListener(this);
 		btnRegistrar.setActionCommand("btnRegistrar");
 		contentPane.add(btnRegistrar);
 		
 		btnRentar = new JButton("Rentar");
-		btnRentar.setBounds(120, 184, 89, 23);
+		btnRentar.setBounds(120, 313, 89, 23);
 		btnRentar.addActionListener(this);
 		btnRentar.setActionCommand("btnRentar");
 		contentPane.add(btnRentar);
+		
+		JLabel lblLicencia_1 = new JLabel("Licencia");
+		lblLicencia_1.setBounds(10, 145, 61, 14);
+		contentPane.add(lblLicencia_1);
+		
+		JLabel lblTipoDeSangre = new JLabel("Tipo de sangre: ");
+		lblTipoDeSangre.setBounds(10, 209, 124, 14);
+		contentPane.add(lblTipoDeSangre);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(144, 202, 108, 20);
+		contentPane.add(comboBox);
+		
+		JLabel lblTipoDeLicencia = new JLabel("Tipo de licencia: ");
+		lblTipoDeLicencia.setBounds(10, 234, 124, 14);
+		contentPane.add(lblTipoDeLicencia);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(144, 233, 108, 20);
+		contentPane.add(comboBox_1);
+		
+		JLabel lblNumero = new JLabel("numero: ");
+		lblNumero.setBounds(10, 174, 61, 14);
+		contentPane.add(lblNumero);
+		
+		JLabel lblFechaDeExpiracion = new JLabel("fecha de expiracion: ");
+		lblFechaDeExpiracion.setBounds(10, 265, 128, 14);
+		contentPane.add(lblFechaDeExpiracion);
+		
+		txtfecha_Expiracion = new JTextField();
+		txtfecha_Expiracion.setBounds(144, 262, 108, 20);
+		contentPane.add(txtfecha_Expiracion);
+		txtfecha_Expiracion.setColumns(10);
+		
+		JLabel lblTipoDeTarjeta = new JLabel("Tipo de tarjeta: ");
+		lblTipoDeTarjeta.setBounds(272, 209, 96, 14);
+		contentPane.add(lblTipoDeTarjeta);
+		
+		JComboBox comboBox_2 = new JComboBox();
+		comboBox_2.setBounds(378, 206, 98, 20);
+		contentPane.add(comboBox_2);
+		
+		JLabel lblNumero_1 = new JLabel("numero:");
+		lblNumero_1.setBounds(272, 174, 66, 14);
+		contentPane.add(lblNumero_1);
+		
+		JLabel lblTarjeta = new JLabel("Tarjeta");
+		lblTarjeta.setBounds(272, 145, 46, 14);
+		contentPane.add(lblTarjeta);
+		
+		txttarjeta = new JTextField();
+		txttarjeta.setBounds(378, 171, 98, 20);
+		contentPane.add(txttarjeta);
+		txttarjeta.setColumns(10);
+		
+		JLabel lblTitular = new JLabel("Titular: ");
+		lblTitular.setBounds(272, 239, 46, 14);
+		contentPane.add(lblTitular);
+		
+		txttitular = new JTextField();
+		txttitular.setBounds(378, 236, 98, 20);
+		contentPane.add(txttitular);
+		txttitular.setColumns(10);
 		
 	
 	}
@@ -150,10 +193,13 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		System.out.println("clic sobre el botón \t" + comando);
 		switch(comando) {
 		case "btnBuscar":
+			buscar();
 			break;
 		case "btnRegistrar":
+			registrar();
 			break;
 		case "btnRentar":
+			rentar();
 			break;
 			default:
 			break;
@@ -161,5 +207,18 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		
 		
 	}
+	private void buscar() {
+		// TODO Auto-generated method stub
+		
+	}
 
+	private void rentar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void registrar() {
+		// TODO Auto-generated method stub
+		
+	}
 }

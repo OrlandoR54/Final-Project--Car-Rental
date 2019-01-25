@@ -20,12 +20,10 @@ public class Cliente {
     private String cli_direccion;
     private String cli_licencia;
     private ArrayList tarjetas;
-    private ArrayList devoluciones;
     private ArrayList contratos;
 
     public Cliente() {
         tarjetas= new ArrayList<Tarjeta>();
-        devoluciones= new ArrayList<Devolucion>();
         contratos = new ArrayList<Contrato>();
     }
     
