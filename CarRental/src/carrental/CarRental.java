@@ -26,6 +26,7 @@ public class CarRental {
         //a.setVisible(true);
     	InterfazRentar v = new InterfazRentar();
     	v.setVisible(true);
+    	System.out.println("hbdhdfhgvdfh");
     }
     
 }
