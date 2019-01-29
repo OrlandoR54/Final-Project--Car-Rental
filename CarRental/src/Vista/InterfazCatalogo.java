@@ -5,18 +5,26 @@
  */
 package Vista;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author israelchuchuca
  */
 public class InterfazCatalogo extends javax.swing.JFrame {
 
+    
+    DefaultTableModel dmt;
+    Object[] o =new Object [1];
     /**
      * Creates new form InterfazCatalogo
      */
     public InterfazCatalogo() {
         initComponents();
+        dmt=(DefaultTableModel) tblcatalogo.getModel();
     }
+    
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,40 +38,52 @@ public class InterfazCatalogo extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblEntregas = new javax.swing.JTable();
+        tblcatalogo = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtLugarEntrega = new javax.swing.JTextField();
         txtHoraEntrega = new javax.swing.JTextField();
         txtFechaFecha = new javax.swing.JTextField();
-        comboTarifa = new javax.swing.JComboBox<String>();
+        comboTarifa = new javax.swing.JComboBox<>();
         txtLugarDevolucion = new javax.swing.JTextField();
         txtHoraDevolucion = new javax.swing.JTextField();
         txtFechaDevolucion = new javax.swing.JTextField();
         btnInicio = new javax.swing.JButton();
         btnContrato = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("THRIFTTY-RENTAR");
         setMinimumSize(new java.awt.Dimension(630, 370));
         getContentPane().setLayout(null);
 
-        tblEntregas.setModel(new javax.swing.table.DefaultTableModel(
+        tblcatalogo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "categoria", "tarifa kilometraje controlado", "kilometraje adicional", "placa vehiculo", "color ", "modelo", "marca"
             }
-        ));
-        jScrollPane1.setViewportView(tblEntregas);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblcatalogo);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(244, -5, 373, 340);
+        jScrollPane1.setBounds(243, 0, 320, 340);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -89,7 +109,7 @@ public class InterfazCatalogo extends javax.swing.JFrame {
         getContentPane().add(txtFechaFecha);
         txtFechaFecha.setBounds(30, 90, 50, 20);
 
-        comboTarifa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "[Seleccione]", "Controlado", "Ilimitado" }));
+        comboTarifa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Seleccione]", "Controlado", "Ilimitado" }));
         comboTarifa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboTarifaActionPerformed(evt);
@@ -128,10 +148,37 @@ public class InterfazCatalogo extends javax.swing.JFrame {
         getContentPane().add(btnContrato);
         btnContrato.setBounds(120, 300, 117, 23);
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(150, 230, 73, 23);
+
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/imagen/Fondo categoria.jpg"))); // NOI18N
         jLabel3.setText("jLabel3");
         getContentPane().add(jLabel3);
         jLabel3.setBounds(0, 0, 630, 340);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(90, -30, 452, 321);
+        getContentPane().add(jTabbedPane1);
+        jTabbedPane1.setBounds(240, 100, 150, 90);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -144,12 +191,21 @@ public class InterfazCatalogo extends javax.swing.JFrame {
         // TODO add your handling code here:
         InterfazEmpleado interfazEmpleado = new InterfazEmpleado();
         interfazEmpleado.setVisible(true);
+        
+      
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void comboTarifaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTarifaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboTarifaActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        o[1]=txtFechaDevolucion.getText();
+        dmt.addRow(o);
+    }//GEN-LAST:event_jButton1ActionPerformed
+ 
     /**
      * @param args the command line arguments
      */
@@ -191,11 +247,15 @@ public class InterfazCatalogo extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> comboTarifa;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblEntregas;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblcatalogo;
     private javax.swing.JTextField txtFechaDevolucion;
     private javax.swing.JTextField txtFechaFecha;
     private javax.swing.JTextField txtHoraDevolucion;
@@ -203,4 +263,8 @@ public class InterfazCatalogo extends javax.swing.JFrame {
     private javax.swing.JTextField txtLugarDevolucion;
     private javax.swing.JTextField txtLugarEntrega;
     // End of variables declaration//GEN-END:variables
+
+    
+
+
 }
