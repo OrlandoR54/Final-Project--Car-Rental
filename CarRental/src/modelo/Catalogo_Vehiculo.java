@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author israelchuchuca
  */
-class Catalogo_Vehiculo {
+public class Catalogo_Vehiculo {
     
     private int cata_id;
     private ArrayList categorias;

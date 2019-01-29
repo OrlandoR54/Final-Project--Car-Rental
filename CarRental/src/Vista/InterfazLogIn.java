@@ -115,7 +115,7 @@ public class InterfazLogIn extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(340, 380, 80, 23);
+        jButton1.setBounds(340, 380, 150, 23);
 
         lblFondoUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/imagen/fondo user.jpg"))); // NOI18N
         getContentPane().add(lblFondoUser);
@@ -129,6 +129,7 @@ public class InterfazLogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+
          // TODO add your handling code here:
         String usuario= txtUsuario.getText();
         String password= new String(txtPassword.getPassword());
@@ -151,6 +152,14 @@ public class InterfazLogIn extends javax.swing.JFrame {
             }else if(s.login(con, usuario, password)==0){
                 System.out.println("usuario y contrasena incorrectas");
             }
+
+        // TODO add your handling code here:
+           usuario=txtUsuario.getText();
+            password = new String(txtPassword.getPassword());
+        if(txtUsuario.getText().equals(usuario) & txtPassword.getText().equals(password)){ 
+            InterfazEmpleado interfazEmpleado = new InterfazEmpleado();
+            interfazEmpleado.setVisible(true);
+
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
