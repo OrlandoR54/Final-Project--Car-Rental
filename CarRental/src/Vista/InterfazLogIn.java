@@ -5,6 +5,9 @@
  */
 package Vista;
 
+import ec.edu.ups.conexion.Conexion;
+import ec.edu.ups.conexion.SentenciasCRUD;
+
 /**
  *
  * @author Israel
@@ -14,6 +17,7 @@ public class InterfazLogIn extends javax.swing.JFrame {
     /**
      * Creates new form InterfazLogIn
      */
+    InterfazRegistroEmpleado IRE ;
     public InterfazLogIn() {
         initComponents();
     }
@@ -105,6 +109,11 @@ public class InterfazLogIn extends javax.swing.JFrame {
         btnSalir.setBounds(200, 380, 90, 23);
 
         jButton1.setText("REGISTRAR EMPLEADO");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1);
         jButton1.setBounds(340, 380, 80, 23);
 
@@ -120,12 +129,28 @@ public class InterfazLogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        // TODO add your handling code here:
-            String usuario=txtUsuario.getText();
-            String password = new String(txtPassword.getPassword());
-        if(txtUsuario.getText().equals(usuario) & txtPassword.getText().equals(password)){ 
-            InterfazEmpleado interfazEmpleado = new InterfazEmpleado();
-        interfazEmpleado.setVisible(true);
+         // TODO add your handling code here:
+        String usuario= txtUsuario.getText();
+        String password= new String(txtPassword.getPassword());
+        
+        
+        
+        Conexion con = new Conexion();
+        SentenciasCRUD s = new SentenciasCRUD();
+        
+        con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+        con.setUsername("DBCARENTAL");
+        con.setPassword("dbcarental");
+        con.Conectar();
+        
+        if (con.getConexion() != null){
+        
+            if(s.login(con, usuario, password)==1){ 
+                InterfazEmpleado interfazEmpleado = new InterfazEmpleado();
+                interfazEmpleado.setVisible(true);
+            }else if(s.login(con, usuario, password)==0){
+                System.out.println("usuario y contrasena incorrectas");
+            }
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
@@ -137,6 +162,12 @@ public class InterfazLogIn extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        IRE =new InterfazRegistroEmpleado();
+        IRE.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -58,6 +58,39 @@ public class SentenciasCRUD {
      * @param regionID Identificador de la region 
      * 
      */
+    public int login(Conexion con,String usuario, String password){
+        
+        
+        
+        con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+        con.setUsername("DBCARENTAL");
+        con.setPassword("dbcarental");
+        con.Conectar();
+        //1 si el usuario y la contrania son correctos o 0 si no
+        System.out.println("uuario" + usuario + "contrasenia "+ password);
+        int r=0;
+        try{
+            String sentenciaLogIn = "SELECT em_usuario,em_password FROM DBCARENTAL.ren_empleados  WHERE  em_usuario =? and em_password=?";
+            psentencia = con.getConexion().prepareStatement(sentenciaLogIn);
+            psentencia.setString(1,usuario);
+            psentencia.setString(2,password);
+            resultado = psentencia.executeQuery();
+            //Se presenta el resultado
+            while (resultado.next()){
+                if(usuario.equals(resultado.getString("em_usuario")) && password.equals(resultado.getString("em_password"))){
+                   System.out.println("dbusuario: "+resultado.getString("em_usuario"));
+                System.out.println("dbpassword: "+resultado.getString("em_password"));
+                r=1; 
+                }else{
+                    r=0;
+                } 
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return r; 
+    }
     public void InsertarEmpleado(Conexion con, String nombre, String apellido, String cedula,String usuario, String pasword){
         try{
             String sentenciaInsercion = "begin P_INSERTAR_EMPLEADO(?,?,?,?,?);  END;  ";

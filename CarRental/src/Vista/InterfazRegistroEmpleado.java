@@ -5,12 +5,16 @@
  */
 package Vista;
 
+import ec.edu.ups.conexion.Conexion;
+import ec.edu.ups.conexion.SentenciasCRUD;
+
 /**
  *
  * @author ISRA ALVA
  */
 public class InterfazRegistroEmpleado extends javax.swing.JFrame {
-
+    
+    
     /**
      * Creates new form InterfazRegistroEmpleado
      */
@@ -39,7 +43,6 @@ public class InterfazRegistroEmpleado extends javax.swing.JFrame {
         TXTEPASSWORD = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -48,7 +51,7 @@ public class InterfazRegistroEmpleado extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(10, 33, 42, 14);
         getContentPane().add(TXTENOMBRE);
-        TXTENOMBRE.setBounds(70, 30, 86, 20);
+        TXTENOMBRE.setBounds(70, 30, 110, 30);
 
         jLabel2.setText("APELLIDO");
         getContentPane().add(jLabel2);
@@ -60,7 +63,7 @@ public class InterfazRegistroEmpleado extends javax.swing.JFrame {
             }
         });
         getContentPane().add(TXTEAPELLIDO);
-        TXTEAPELLIDO.setBounds(68, 74, 88, 20);
+        TXTEAPELLIDO.setBounds(68, 74, 110, 40);
 
         TXTECEDULA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,13 +71,13 @@ public class InterfazRegistroEmpleado extends javax.swing.JFrame {
             }
         });
         getContentPane().add(TXTECEDULA);
-        TXTECEDULA.setBounds(273, 30, 68, 20);
+        TXTECEDULA.setBounds(273, 30, 90, 30);
 
         jLabel3.setText("CEDULA");
         getContentPane().add(jLabel3);
         jLabel3.setBounds(192, 33, 39, 14);
         getContentPane().add(TXTEUSUARIO);
-        TXTEUSUARIO.setBounds(273, 74, 68, 20);
+        TXTEUSUARIO.setBounds(273, 74, 90, 30);
 
         jLabel4.setText("USUARIO");
         getContentPane().add(jLabel4);
@@ -90,7 +93,7 @@ public class InterfazRegistroEmpleado extends javax.swing.JFrame {
             }
         });
         getContentPane().add(TXTEPASSWORD);
-        TXTEPASSWORD.setBounds(273, 130, 68, 20);
+        TXTEPASSWORD.setBounds(273, 130, 90, 40);
 
         jButton1.setText("Listo");
         jButton1.setMaximumSize(new java.awt.Dimension(200, 300));
@@ -103,14 +106,9 @@ public class InterfazRegistroEmpleado extends javax.swing.JFrame {
         getContentPane().add(jButton1);
         jButton1.setBounds(273, 182, 55, 23);
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/car-rental.jpg"))); // NOI18N
-        jLabel6.setText("VALES VERG TUTO");
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/imagen/car-rental.jpg"))); // NOI18N
         getContentPane().add(jLabel6);
         jLabel6.setBounds(0, 0, 400, 300);
-
-        jLabel7.setText("jLabel7");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(70, 260, 34, 14);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -129,6 +127,19 @@ public class InterfazRegistroEmpleado extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        Conexion con = new Conexion();
+        SentenciasCRUD s = new SentenciasCRUD();
+        con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+        con.setUsername("DBCARENTAL");
+        con.setPassword("dbcarental");
+        con.Conectar();
+        
+        String nombre=TXTENOMBRE.getText();
+        String apellido= TXTEAPELLIDO.getText();
+        String cedula = TXTECEDULA.getText();
+        String usuario= TXTEUSUARIO.getText();
+        String password= TXTEPASSWORD.getText();
+        s.InsertarEmpleado(con, nombre, apellido, cedula, usuario, password);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -180,6 +191,5 @@ public class InterfazRegistroEmpleado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
 }
