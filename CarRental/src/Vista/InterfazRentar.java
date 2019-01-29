@@ -203,7 +203,11 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		txttitular = new JTextField();
 		txttitular.setBounds(378, 236, 98, 20);
 		contentPane.add(txttitular);
-		txttitular.setColumns(10);	
+		txttitular.setColumns(10);
+		
+		JButton btnRealizarContrato = new JButton("Realizar Contrato");
+		btnRealizarContrato.setBounds(229, 313, 124, 23);
+		contentPane.add(btnRealizarContrato);
 	
 	}
 
