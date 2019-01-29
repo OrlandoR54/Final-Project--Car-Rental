@@ -2,6 +2,7 @@
 package Vista;
 
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,10 +10,18 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import ec.edu.ups.conexion.Conexion;
+import ec.edu.ups.conexion.SentenciasCRUD;
+import modelo.Cliente;
+import modelo.Licencia;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+
+import java.sql.PreparedStatement;
 
 public class InterfazRentar extends JFrame implements ActionListener {
 
@@ -30,6 +39,9 @@ public class InterfazRentar extends JFrame implements ActionListener {
 	private JTextField txtfecha_Expiracion;
 	private JTextField txttarjeta;
 	private JTextField txttitular;
+	
+	private JComboBox JCtipoSangre;
+	private JComboBox JCtipoLicencia;
 
 	/**
 	 * Launch the application.
@@ -128,17 +140,27 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		lblTipoDeSangre.setBounds(10, 209, 124, 14);
 		contentPane.add(lblTipoDeSangre);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(144, 202, 108, 20);
-		contentPane.add(comboBox);
+		JCtipoSangre = new JComboBox();
+		JCtipoSangre.addItem("O-");
+		JCtipoSangre.addItem("O+");
+		JCtipoSangre.addItem("A-");
+		JCtipoSangre.addItem("A+");
+		JCtipoSangre.addItem("B-");
+		JCtipoSangre.addItem("B+");
+		JCtipoSangre.addItem("AB-");
+		JCtipoSangre.addItem("AB+");
+		JCtipoSangre.setBounds(144, 202, 108, 20);
+		contentPane.add(JCtipoSangre);
 		
 		JLabel lblTipoDeLicencia = new JLabel("Tipo de licencia: ");
 		lblTipoDeLicencia.setBounds(10, 234, 124, 14);
 		contentPane.add(lblTipoDeLicencia);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(144, 233, 108, 20);
-		contentPane.add(comboBox_1);
+		JCtipoLicencia = new JComboBox();
+		JCtipoLicencia.addItem("B");
+		JCtipoLicencia.addItem("F");
+		JCtipoLicencia.setBounds(144, 233, 108, 20);
+		contentPane.add(JCtipoLicencia);
 		
 		JLabel lblNumero = new JLabel("numero: ");
 		lblNumero.setBounds(10, 174, 61, 14);
@@ -181,8 +203,7 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		txttitular = new JTextField();
 		txttitular.setBounds(378, 236, 98, 20);
 		contentPane.add(txttitular);
-		txttitular.setColumns(10);
-		
+		txttitular.setColumns(10);	
 	
 	}
 
@@ -190,7 +211,7 @@ public class InterfazRentar extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String comando = e.getActionCommand();
-		System.out.println("clic sobre el botón \t" + comando);
+		System.out.println("clic sobre el boton \t" + comando);
 		switch(comando) {
 		case "btnBuscar":
 			buscar();
@@ -214,7 +235,36 @@ public class InterfazRentar extends JFrame implements ActionListener {
 
 	private void rentar() {
 		// TODO Auto-generated method stub
+		Licencia licencia = new Licencia();
+		SentenciasCRUD insertar = new SentenciasCRUD();
 		
+		
+		int numero = Integer.parseInt(txtLicencia.getText());
+		licencia.setNumero(numero);
+		
+		
+		
+		String sangre = String.valueOf(JCtipoSangre.getSelectedItem());
+		licencia.setTipoSangre(sangre);
+		
+		String tLicencia = String.valueOf(JCtipoLicencia.getSelectedItem());
+		licencia.setTipoLicencia(tLicencia);
+		
+		int num = 7;
+		licencia.setIdCliente(num);
+		
+		String fExpiracion = txtfecha_Expiracion.getText();
+		licencia.setFechaExpiracion(fExpiracion);
+		
+		insertar.InsertarLicencia(licencia);
+		
+		
+		
+		
+		
+		
+		
+		//cambio de privado a publico las clases: catalogo,contrado,devolucion,vehiculo
 	}
 
 	private void registrar() {

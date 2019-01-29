@@ -9,6 +9,6 @@ package modelo;
  *
  * @author israelchuchuca
  */
-class Contrato {
+public class Contrato {
     
 }

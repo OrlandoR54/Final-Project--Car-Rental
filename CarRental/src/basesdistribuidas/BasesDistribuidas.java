@@ -7,6 +7,7 @@ package basesdistribuidas;
 
 import ec.edu.ups.conexion.Conexion;
 import ec.edu.ups.conexion.SentenciasCRUD;
+import modelo.Licencia;
 
 /**
  *
@@ -23,15 +24,18 @@ public class BasesDistribuidas {
         SentenciasCRUD s = new SentenciasCRUD();
         
         con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
-        con.setUsername("YCHRISTIAN");
-        con.setPassword("ychristian");
+        con.setUsername("arc");
+        con.setPassword("arc");
         con.Conectar();
         
         if (con.getConexion() != null){
             System.out.println("Base de datos conectada");
             
             //Se consulta los datos de un empleado
-            s.ConsultarEmployees(con, "1");
+            //s.ConsultarEmployees(con, "1");
+            Licencia licencia = new Licencia();
+            
+            s.InsertarLicencia(licencia);
             
             //Se inserta el nuevo pais
             //s.InsertarPais(con, "EC", "ECUADOR", 2);

@@ -14,6 +14,6 @@ class Devolucion {
     private int dev_id;
     private double dev_kilometro_extra;
     private boolean dev_tanque_gasolina;
-    private double dev_costo_daños;
+    private double dev_costo_datos;
     private double dev_garantia_devuelta;
 }

@@ -9,7 +9,7 @@ package modelo;
  *
  * @author israelchuchuca
  */
-class Vehiculo {
+public class Vehiculo {
     
     private int veh_codigo;
     private int veh_placa;

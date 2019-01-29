@@ -10,16 +10,76 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import modelo.Cliente;
+import modelo.Licencia;
+
 /**
  * Clase para realizar consultas que se requiere a la base
  * @author oracle
  */
+
 public class SentenciasCRUD {
     
     private ResultSet resultado = null;
     private PreparedStatement psentencia = null;
     
+   
     
+    public void InsertarLicencia(Licencia licencia) {
+    	
+    	try {
+			String Insercion = "INSERT INTO ren_licencias VALUES"
+										+ "(?,?,?,?,?)";
+			 Conexion con = new Conexion();
+			    con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+			    con.setUsername("arc");
+			    con.setPassword("arc");
+			    con.Conectar();
+			
+			
+			System.out.println(Insercion);
+			psentencia = con.getConexion().prepareStatement(Insercion);
+			psentencia.setInt(1, licencia.getNumero());
+			psentencia.setString(2, licencia.getTipoSangre());
+			psentencia.setString(3, licencia.getTipoLicencia());
+			psentencia.setInt(4, licencia.getIdCliente());
+			psentencia.setString(5, licencia.getFechaExpiracion());
+			
+			psentencia.executeUpdate();
+										 		
+					
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+    	
+    }
+    /**
+     * Metodo para insertar un nuevo pais
+     * 
+     * @param countryID Identificador del nuevo pais
+     * @param countryName Nombre del pais
+     * @param regionID Identificador de la region 
+     * 
+     */
+    public void InsertarPais(Conexion con, String countryID, 
+    						 String countryName, int regionID){
+        try{
+            String sentenciaInsercion = "INSERT INTO Countries VALUES "
+                    + "(?,?,?)";
+            psentencia = con.getConexion().prepareStatement(sentenciaInsercion);
+            psentencia.setString(1, countryID);
+            psentencia.setString(2, countryName);
+            psentencia.setInt(3, regionID);
+            
+            //Se ejecuta la sentencia de INSERT
+            psentencia.executeUpdate();
+            
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
     /**
      * Metodo para consultar los datos de un empleado
      * @param con Conexion a la base de datos
@@ -50,32 +110,7 @@ public class SentenciasCRUD {
     }
 
     
-    /**
-     * Metodo para insertar un nuevo pais
-     * 
-     * @param countryID Identificador del nuevo pais
-     * @param countryName Nombre del pais
-     * @param regionID Identificador de la region 
-     * 
-     */
-    public void InsertarPais(Conexion con, String countryID, String countryName, int regionID){
-        try{
-            String sentenciaInsercion = "INSERT INTO Countries VALUES "
-                    + "(?,?,?)";
-            psentencia = con.getConexion().prepareStatement(sentenciaInsercion);
-            psentencia.setString(1, countryID);
-            psentencia.setString(2, countryName);
-            psentencia.setInt(3, regionID);
-            
-            //Se ejecuta la sentencia de INSERT
-            psentencia.executeUpdate();
-            
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
-    
+   
     /**
      * Metodo para eliminar un pais acorde a su identificador
      * @param con Conexion a la base de datos

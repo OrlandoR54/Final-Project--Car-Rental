@@ -6,6 +6,7 @@
 package carrental;
 
 import Vista.InterfazEmpleado;
+import Vista.InterfazKardex;
 import Vista.InterfazLogIn;
 import Vista.InterfazRegistroEmpleado;
 import Vista.InterfazRentar;
@@ -24,9 +25,9 @@ public class CarRental {
         // TODO code application logic here
         //InterfazRentar a = new InterfazRentar();
         //a.setVisible(true);
-    	InterfazRentar v = new InterfazRentar();
+    	InterfazRentar v = new InterfazRentar() ;
     	v.setVisible(true);
-    	System.out.println("hbdhdfhgvdfh");
+    	
     }
     
 }
