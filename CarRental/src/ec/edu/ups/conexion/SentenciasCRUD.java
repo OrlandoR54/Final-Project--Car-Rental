@@ -56,8 +56,26 @@ public class SentenciasCRUD {
     }
     public void InsertarCliente(Cliente cli) {
     	try {
-    		String insercionCliente = "INSERT INTO ren_clientes"
-    									+"()";
+    		String insercionCliente = "INSERT INTO ren_clientes VALUES"
+    									+"(?,?,?,?,?)";
+    		Conexion con = new Conexion();
+    		con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+    		con.setUsername("arc");
+    		con.setPassword("arc");
+    		con.Conectar();
+    		
+    		System.out.println(insercionCliente);
+    		psentencia = con.getConexion().prepareStatement(insercionCliente);
+    		psentencia.setInt(1, cli.getCli_id());
+    		psentencia.setString(2, cli.getCli_nombre());
+    		psentencia.setString(3,cli.getCli_apellido());
+    		psentencia.setString(4, cli.getCli_cedula());
+    		psentencia.setString(5, cli.getCli_direccion());
+    		
+    		psentencia.executeUpdate();
+    		
+    	}catch(SQLException e) {
+    		e.printStackTrace();
     	}
     	
     }

@@ -18,7 +18,7 @@ public class Cliente {
     private String cli_apellido;
     private String cli_cedula;
     private String cli_direccion;
-    private String cli_licencia;
+  
     private ArrayList tarjetas;
     private ArrayList contratos;
 
@@ -67,14 +67,6 @@ public class Cliente {
 		this.cli_direccion = cli_direccion;
 	}
 
-	public String getCli_licencia() {
-		return cli_licencia;
-	}
-
-	public void setCli_licencia(String cli_licencia) {
-		this.cli_licencia = cli_licencia;
-	}
-
 	public ArrayList getTarjetas() {
 		return tarjetas;
 	}
@@ -90,7 +82,6 @@ public class Cliente {
 	public void setContratos(ArrayList contratos) {
 		this.contratos = contratos;
 	}
-    
-    
+
     
 }

@@ -235,14 +235,34 @@ public class InterfazRentar extends JFrame implements ActionListener {
 
 	private void rentar() {
 		// TODO Auto-generated method stub
-		Licencia licencia = new Licencia();
 		SentenciasCRUD insertar = new SentenciasCRUD();
+		Cliente cliente = new Cliente();
 		
+		int cliID = 8;
+		cliente.setCli_id(cliID);
+		
+		String nombre = txtNombre.getText();
+		cliente.setCli_nombre(nombre);
+		
+		String apellido = txtApellido.getText();
+		cliente.setCli_apellido(apellido);
+		
+		String cedula = txtCedula.getText();
+		cliente.setCli_cedula(cedula);
+		
+		String direccion = txtDireccion.getText();
+		cliente.setCli_cedula(direccion);
+		
+		insertar.InsertarCliente(cliente);
+		
+		
+		
+		/*
+		 * Insertar la licencia del cliente a la base datos
+		Licencia licencia = new Licencia();
 		
 		int numero = Integer.parseInt(txtLicencia.getText());
 		licencia.setNumero(numero);
-		
-		
 		
 		String sangre = String.valueOf(JCtipoSangre.getSelectedItem());
 		licencia.setTipoSangre(sangre);
@@ -256,7 +276,7 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		String fExpiracion = txtfecha_Expiracion.getText();
 		licencia.setFechaExpiracion(fExpiracion);
 		
-		insertar.InsertarLicencia(licencia);
+		insertar.InsertarLicencia(licencia);*/
 		
 		
 		
