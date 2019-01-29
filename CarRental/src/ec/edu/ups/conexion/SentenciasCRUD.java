@@ -54,6 +54,13 @@ public class SentenciasCRUD {
 		}
     	
     }
+    public void InsertarCliente(Cliente cli) {
+    	try {
+    		String insercionCliente = "INSERT INTO ren_clientes"
+    									+"()";
+    	}
+    	
+    }
     /**
      * Metodo para insertar un nuevo pais
      * 
