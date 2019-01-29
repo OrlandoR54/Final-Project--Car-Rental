@@ -8,6 +8,7 @@ package Controlador;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Catalogo_Vehiculo;
+import modelo.Categoria;
 import modelo.Cliente;
 import modelo.Contrato;
 import modelo.FacturaCabecera;
@@ -45,13 +46,16 @@ public class Controlador {
         this.vehiculos.add(vehiculo);
     }
     
-    public void guardaVehiculo(int veh_codigo, String veh_placa, int veh_kilometraje, String veh_color, String veh_estado, String veh_tipo){
+    public void guardaVehiculo(String veh_placa, double veh_kilometraje, String veh_color, String veh_estado, String veh_tipo,){
         Vehiculo vehiculo = new Vehiculo();
         
-        vehiculo.setVeh_codigo(veh_codigo);
         vehiculo.setVeh_placa(veh_placa);
         vehiculo.setVeh_kilometraje(veh_kilometraje);
         vehiculo.setVeh_color(veh_color);
+        
+        Categoria categoria = new Categoria();
+        
+        categoria.setCatMarca(veh_placa);
         
         this.addVehiculo(vehiculo);
     }

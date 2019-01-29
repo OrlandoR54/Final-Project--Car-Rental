@@ -106,7 +106,7 @@ public class InterfazLogIn extends javax.swing.JFrame {
 
         jButton1.setText("REGISTRAR EMPLEADO");
         getContentPane().add(jButton1);
-        jButton1.setBounds(340, 380, 80, 23);
+        jButton1.setBounds(340, 380, 150, 23);
 
         lblFondoUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/imagen/fondo user.jpg"))); // NOI18N
         getContentPane().add(lblFondoUser);
@@ -125,7 +125,7 @@ public class InterfazLogIn extends javax.swing.JFrame {
             String password = new String(txtPassword.getPassword());
         if(txtUsuario.getText().equals(usuario) & txtPassword.getText().equals(password)){ 
             InterfazEmpleado interfazEmpleado = new InterfazEmpleado();
-        interfazEmpleado.setVisible(true);
+            interfazEmpleado.setVisible(true);
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 

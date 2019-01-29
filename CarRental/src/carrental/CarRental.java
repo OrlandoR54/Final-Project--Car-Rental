@@ -24,9 +24,9 @@ public class CarRental {
         // TODO code application logic here
         //InterfazRentar a = new InterfazRentar();
         //a.setVisible(true);
-    	InterfazRentar v = new InterfazRentar();
+    	InterfazVehiculo v = new InterfazVehiculo();
     	v.setVisible(true);
-    	System.out.println("hbdhdfhgvdfh");
+    	
     }
     
 }

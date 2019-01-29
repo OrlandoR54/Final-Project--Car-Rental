@@ -26,7 +26,6 @@ public class SentenciasCRUD {
      * @param codigo Codigo del empleado de quien se desea presentar los datos
      */
     public void ConsultarEmployees(Conexion con, String codigo){
-        
         try{
             psentencia = con.getConexion().prepareStatement("SELECT em_id, em_nombre,em_apellido,em_cedula,em_usuario,em_password "
                         + "FROM DBCARENTAL.empleados "
@@ -124,6 +123,37 @@ public class SentenciasCRUD {
         }
     }
     
+    /**
+     * Metodo para el ingreso de vehiculos
+     * @param con
+     * @param veh_codigo
+     * @param veh_placa
+     * @param veh_kilometraje
+     * @param veh_color
+     * @param veh_estado
+     * @param veh_tipo 
+     */
+    public void InsertarVehiculo(Conexion con, int veh_codigo, String veh_placa, int veh_kilometraje, String veh_color, String veh_estado, String veh_tipo){
+        try{
+            String sentenciaInsercion = "INSERT INTO ren_vehiculos VALUES "
+                    + "(?,?,?,?,?,?)";
+            psentencia = con.getConexion().prepareStatement(sentenciaInsercion);
+            psentencia.setInt(1, veh_codigo);
+            psentencia.setString(2, veh_placa);
+            psentencia.setInt(3, veh_kilometraje);
+            psentencia.setString(4, veh_color);
+            psentencia.setString(5, veh_estado);
+            psentencia.setString(6, veh_tipo);
+           
+            //Se ejecuta la sentencia de INSERT
+            psentencia.executeUpdate();
+            
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    /////////////////////////////////////////////////////////////////////////////////
     public ResultSet getResultado() {
         return resultado;
     }

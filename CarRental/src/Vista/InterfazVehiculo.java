@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Controlador.Controlador;
 import ec.edu.ups.conexion.SentenciasCRUD;
 
 /**
@@ -57,6 +58,7 @@ public class InterfazVehiculo extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel2.setText("Placa:");
 
@@ -81,6 +83,11 @@ public class InterfazVehiculo extends javax.swing.JFrame {
         jLabel5.setText("Tanque:");
 
         comboTanque.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Vacio", "Lleno" }));
+        comboTanque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboTanqueActionPerformed(evt);
+            }
+        });
 
         lblRegistro.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblRegistro.setText("Registro Vehiculo");
@@ -146,6 +153,11 @@ public class InterfazVehiculo extends javax.swing.JFrame {
         jLabel8.setText("Tipo");
 
         comboTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "nacional", "extranjero" }));
+        comboTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboTipoActionPerformed(evt);
+            }
+        });
 
         txtColor.setText("rojo"); // NOI18N
         txtColor.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -239,12 +251,13 @@ public class InterfazVehiculo extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblRegistro)
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtModelo)
-                        .addComponent(jLabel6)))
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -320,11 +333,10 @@ public class InterfazVehiculo extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        Controlador controlador = new Controlador();
         
-        
+        controlador.guardaVehiculo(WIDTH, txtPlaca.getText(), Double.parseDouble(txtKilometraje.getText()), txtColor.getText(), comboTipo.toString() , null);
         txtMarca.getText();
-        txtPlaca.getText();
-        txtKilometraje.getText();
         txtPrecioDiario.getText();
         txtKmExtra.getText();
         txtPrecioVehiculo.getText();
@@ -339,6 +351,14 @@ public class InterfazVehiculo extends javax.swing.JFrame {
     private void txtColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtColorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtColorActionPerformed
+
+    private void comboTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboTipoActionPerformed
+
+    private void comboTanqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTanqueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboTanqueActionPerformed
 
     /**
      * @param args the command line arguments

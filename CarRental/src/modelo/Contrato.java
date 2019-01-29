@@ -20,4 +20,6 @@ public class Contrato {
     private Boolean tanqueGasolina_con;
     private Double garantia_con;
     private Vehiculo vehiculo_con;
+    
+    
 }
