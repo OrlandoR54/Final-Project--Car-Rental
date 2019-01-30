@@ -15,6 +15,7 @@ import ec.edu.ups.conexion.Conexion;
 import ec.edu.ups.conexion.SentenciasCRUD;
 import modelo.Cliente;
 import modelo.Licencia;
+import modelo.Tarjeta;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -240,10 +241,14 @@ public class InterfazRentar extends JFrame implements ActionListener {
 	private void rentar() {
 		// TODO Auto-generated method stub
 		SentenciasCRUD insertar = new SentenciasCRUD();
+		Tarjeta tarjeta = new Tarjeta();
+		
+		/*
 		Cliente cliente = new Cliente();
 		
+		
 		int cliID = 8;
-		cliente.setCli_id(cliID);
+		cliente.setIDcliente(cliID);
 		
 		String nombre = txtNombre.getText();
 		cliente.setCli_nombre(nombre);
@@ -251,13 +256,13 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		String apellido = txtApellido.getText();
 		cliente.setCli_apellido(apellido);
 		
-		String cedula = txtCedula.getText();
+		String cedula = String.valueOf(txtCedula.getText());
 		cliente.setCli_cedula(cedula);
 		
 		String direccion = txtDireccion.getText();
 		cliente.setCli_cedula(direccion);
 		
-		insertar.InsertarCliente(cliente);
+		insertar.insertarCliente(cliente);*/
 		
 		
 		

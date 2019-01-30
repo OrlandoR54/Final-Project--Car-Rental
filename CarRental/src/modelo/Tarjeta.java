@@ -1,20 +1,43 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
-/**
- *
- * @author israelchuchuca
- */
-class Tarjeta {
-    
-    private int tar_id;
-    private String tar_tipo_de_tarjeta;
-    private String tar_numero_Tarjeta;
-    private String tar_nombre; 
-    private String tar_cbb;
-    
+public class Tarjeta {
+	
+	private int tarjetaID;
+	private String tipoTarjeta;
+	private int numeroTarjeta;
+	private String titular;
+	private int tarCliID;
+	public int getTarjetaID() {
+		return tarjetaID;
+	}
+	public void setTarjetaID(int tarjetaID) {
+		this.tarjetaID = tarjetaID;
+	}
+	public String getTipoTarjeta() {
+		return tipoTarjeta;
+	}
+	public void setTipoTarjeta(String tipoTarjeta) {
+		this.tipoTarjeta = tipoTarjeta;
+	}
+	public int getNumeroTarjeta() {
+		return numeroTarjeta;
+	}
+	public void setNumeroTarjeta(int numeroTarjeta) {
+		this.numeroTarjeta = numeroTarjeta;
+	}
+	public String getTitular() {
+		return titular;
+	}
+	public void setTitular(String titular) {
+		this.titular = titular;
+	}
+	public int getTarCliID() {
+		return tarCliID;
+	}
+	public void setTarCliID(int tarCliID) {
+		this.tarCliID = tarCliID;
+	}
+	
+	
+
 }

@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Cliente {
     
-    private int cli_id;
+    private int IDcliente;
     private String cli_nombre;
     private String cli_apellido;
     private String cli_cedula;
@@ -27,13 +27,19 @@ public class Cliente {
         contratos = new ArrayList<Contrato>();
     }
 
-	public int getCli_id() {
-		return cli_id;
+	
+
+	public int getIDcliente() {
+		return IDcliente;
 	}
 
-	public void setCli_id(int cli_id) {
-		this.cli_id = cli_id;
+
+
+	public void setIDcliente(int iDcliente) {
+		IDcliente = iDcliente;
 	}
+
+
 
 	public String getCli_nombre() {
 		return cli_nombre;
