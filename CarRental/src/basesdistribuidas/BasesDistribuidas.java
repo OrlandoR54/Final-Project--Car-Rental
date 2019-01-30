@@ -23,15 +23,15 @@ public class BasesDistribuidas {
         SentenciasCRUD s = new SentenciasCRUD();
         
         con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
-        con.setUsername("YCHRISTIAN");
-        con.setPassword("ychristian");
+        con.setUsername("DBCARENTAL");
+        con.setPassword("dbcarrental");
         con.Conectar();
         
         if (con.getConexion() != null){
             System.out.println("Base de datos conectada");
             
             //Se consulta los datos de un empleado
-            s.ConsultarEmployees(con, "1");
+            
             
             //Se inserta el nuevo pais
             //s.InsertarPais(con, "EC", "ECUADOR", 2);

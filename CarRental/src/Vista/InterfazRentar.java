@@ -190,7 +190,7 @@ public class InterfazRentar extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String comando = e.getActionCommand();
-		System.out.println("clic sobre el botón \t" + comando);
+		System.out.println("clic sobre el boton \t" + comando);
 		switch(comando) {
 		case "btnBuscar":
 			buscar();

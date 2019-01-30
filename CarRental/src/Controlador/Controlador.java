@@ -49,9 +49,9 @@ public class Controlador {
         Vehiculo vehiculo = new Vehiculo();
         
         vehiculo.setVeh_codigo(veh_codigo);
-        vehiculo.setVeh_placa(veh_placa);
+        
         vehiculo.setVeh_kilometraje(veh_kilometraje);
-        vehiculo.setVeh_color(veh_color);
+       
         
         this.addVehiculo(vehiculo);
     }
