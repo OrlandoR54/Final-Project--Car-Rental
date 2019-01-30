@@ -5,7 +5,14 @@
  */
 package Vista;
 
+import Controlador.Controlador;
+import ec.edu.ups.conexion.Conexion;
+import ec.edu.ups.conexion.SentenciasCRUD;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
+import modelo.Catalogo_Vehiculo;
 
 /**
  *
@@ -15,13 +22,28 @@ public class InterfazCatalogo extends javax.swing.JFrame {
 
     
     DefaultTableModel dmt;
-    Object[] o =new Object [1];
+    Object[] o =new Object [7];
     /**
      * Creates new form InterfazCatalogo
      */
     public InterfazCatalogo() {
         initComponents();
+        Conexion con = null;
+        sentencia_catalogo(con);
         dmt=(DefaultTableModel) tblcatalogo.getModel();
+        
+        /**
+     *   o[0]="cate_nombre";
+        o[1]="cate__precio_dia_controlado";
+        o[2]="cate__precio_adicional_km";
+        o[3]="veh_placa";
+        o[4]="veh_color";
+        o[5]="mod_nombre";
+        o[6]="sdsd";
+        dmt.addRow(o);
+     */
+        // TODO add your handling code here:
+        
     }
     
    
@@ -58,15 +80,12 @@ public class InterfazCatalogo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("THRIFTTY-RENTAR");
-        setMinimumSize(new java.awt.Dimension(630, 370));
+        setMinimumSize(new java.awt.Dimension(800, 800));
         getContentPane().setLayout(null);
 
         tblcatalogo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "categoria", "tarifa kilometraje controlado", "kilometraje adicional", "placa vehiculo", "color ", "modelo", "marca"
@@ -80,10 +99,11 @@ public class InterfazCatalogo extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblcatalogo.setGridColor(new java.awt.Color(120, 120, 120));
         jScrollPane1.setViewportView(tblcatalogo);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(243, 0, 320, 340);
+        jScrollPane1.setBounds(200, -10, 620, 360);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -160,7 +180,7 @@ public class InterfazCatalogo extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/imagen/Fondo categoria.jpg"))); // NOI18N
         jLabel3.setText("jLabel3");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(0, 0, 630, 340);
+        jLabel3.setBounds(-20, -20, 630, 360);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -176,7 +196,7 @@ public class InterfazCatalogo extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(90, -30, 452, 321);
+        jScrollPane2.setBounds(90, -30, 452, 402);
         getContentPane().add(jTabbedPane1);
         jTabbedPane1.setBounds(240, 100, 150, 90);
 
@@ -200,10 +220,8 @@ public class InterfazCatalogo extends javax.swing.JFrame {
     }//GEN-LAST:event_comboTarifaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         
-        o[1]=txtFechaDevolucion.getText();
-        dmt.addRow(o);
+ 
     }//GEN-LAST:event_jButton1ActionPerformed
  
     /**
@@ -264,6 +282,51 @@ public class InterfazCatalogo extends javax.swing.JFrame {
     private javax.swing.JTextField txtLugarEntrega;
     // End of variables declaration//GEN-END:variables
 
+   private ResultSet resultado = null;
+    private PreparedStatement psentencia = null;
+
+    private void sentencia_catalogo(Conexion con) {
+        
+               try{
+            psentencia = con.getConexion().prepareStatement("   select c.cate_nombre,c.cate__precio_dia_controlado,c.cate__precio_adicional_km,v.veh_placa,v.veh_color,mo.mod_nombre,m.mar_nombre\n" +
+"   from ren_categorias c , ren_vehiculos v, ren_marcas m ,ren_modelos mo\n" +
+"   where c.cate_id=v.ren_categorias_cate_id and m.mar_id=mo.ren_marcas_mar_id and v.ren_modelos_mod_id=mo.mod_id");
+     
+            resultado = psentencia.executeQuery();
+            
+            //Se presenta el resultado
+            while (resultado.next()){
+                o[0]=resultado.getString("cate_nombre");
+        o[1]=resultado.getDouble("cate__precio_dia_controlado");
+        o[2]=resultado.getDouble("cate__precio_adicional_km");
+        o[3]=resultado.getString("veh_placa");
+        o[4]=resultado.getString("veh_color");
+        o[5]=resultado.getString("mod_nombre");
+        o[6]=resultado.getString(" mar_nombre");
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }    
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+     
+    public ResultSet getResultado() {
+        return resultado;
+    }
+
+    public void setResultado(ResultSet resultado) {
+        this.resultado = resultado;
+    }
+
+    public PreparedStatement getPsentencia() {
+        return psentencia;
+    }
+
+    public void setPsentencia(PreparedStatement psentencia) {
+        this.psentencia = psentencia;
+    }
     
 
 
