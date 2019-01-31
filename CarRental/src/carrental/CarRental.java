@@ -6,11 +6,11 @@
 package carrental;
 
 import Vista.InterfazEmpleado;
-import Vista.InterfazKardex;
 import Vista.InterfazLogIn;
 import Vista.InterfazRegistroEmpleado;
 import Vista.InterfazRentar;
 import Vista.InterfazVehiculo;
+import Vista.interfazKardex;
 
 /**
  *
@@ -25,7 +25,7 @@ public class CarRental {
         // TODO code application logic here
         //InterfazRentar a = new InterfazRentar();
         //a.setVisible(true);
-    	InterfazRentar v = new InterfazRentar() ;
+    	interfazKardex v = new interfazKardex();
     	v.setVisible(true);
     	
     }

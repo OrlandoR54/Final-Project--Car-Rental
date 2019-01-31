@@ -35,15 +35,15 @@ public class SentenciasCRUD {
     	int res = 0;
     	try {
     		Conexion con = new Conexion();
-		    con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
-		    con.setUsername("arc");
-		    con.setPassword("arc");
-		    con.Conectar();
+    		con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+            con.setUsername("DBRENTAR");
+            con.setPassword("dbrentar");
+            con.Conectar();
 		    
     		psentencia = con.getConexion().prepareStatement(" select us_id\n" + 
-    				"	  from arc.ren_clientes \n" + 
+    				"	  from DBRENTAR.ren_clientes \n" + 
     				"	  where us_id = (select max(us_id) \n" + 
-    				"                    from arc.ren_clientes)");
+    				"                    from DBRENTAR.ren_clientes)");
     		resultado = psentencia.executeQuery();
     		while(resultado.next()) {
     			res = resultado.getInt("US_ID");
@@ -60,15 +60,15 @@ public class SentenciasCRUD {
     	int res = 0;
     	try {
     		Conexion con = new Conexion();
-		    con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
-		    con.setUsername("arc");
-		    con.setPassword("arc");
-		    con.Conectar();
+    		con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+            con.setUsername("DBRENTAR");
+            con.setPassword("dbrentar");
+            con.Conectar();
 		    
     		psentencia = con.getConexion().prepareStatement(" select tar_id\n" + 
-    				"	  from arc.ren_tarjetas \n" + 
+    				"	  from DBRENTAR.ren_tarjetas \n" + 
     				"	  where tar_id = (select max(tar_id) \n" + 
-    				"                    from arc.ren_tarjetas)");
+    				"                    from DBRENTAR.ren_tarjetas)");
     		resultado = psentencia.executeQuery();
     		while(resultado.next()) {
     			res = resultado.getInt("TAR_ID");
@@ -86,15 +86,15 @@ public class SentenciasCRUD {
     	int res = 0;
     	try {
     		Conexion con = new Conexion();
-		    con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
-		    con.setUsername("arc");
-		    con.setPassword("arc");
-		    con.Conectar();
+    		con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+            con.setUsername("DBRENTAR");
+            con.setPassword("dbrentar");
+            con.Conectar();
 		    
     		psentencia = con.getConexion().prepareStatement(" select lic_id\n" + 
-    				"	  from arc.ren_licencias \n" + 
+    				"	  from DBRENTAR.ren_licencias \n" + 
     				"	  where lic_id = (select max(lic_id) \n" + 
-    				"                    from arc.ren_licencias)");
+    				"                    from DBRENTAR.ren_licencias)");
     		resultado = psentencia.executeQuery();
     		while(resultado.next()) {
     			res = resultado.getInt("LIC_ID");
@@ -113,10 +113,10 @@ public class SentenciasCRUD {
 				   					+ "(?,?,?,?,?)";
 		   
 		   Conexion con = new Conexion();
-		   con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
-		   con.setUsername("arc");
-		   con.setPassword("arc");
-		   con.Conectar();
+   		   con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+           con.setUsername("DBRENTAR");
+           con.setPassword("dbrentar");
+           con.Conectar();
 		   
 		   System.out.println(insertarCliente);
 		   
@@ -145,10 +145,10 @@ public class SentenciasCRUD {
 			String insertarTarjeta = "INSERT INTO ren_tarjetas VALUES"
 									  +"(?,?,?,?,?)";
 			Conexion con = new Conexion();
-		    con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
-		    con.setUsername("arc");
-		    con.setPassword("arc");
-		    con.Conectar();
+    		con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+            con.setUsername("DBRENTAR");
+            con.setPassword("dbrentar");
+            con.Conectar();
 		    
 		    
 		    System.out.println(insertarTarjeta);
@@ -173,11 +173,11 @@ public class SentenciasCRUD {
     	try {
 			String Insercion = "INSERT INTO ren_licencias VALUES"
 										+ "(?,?,?,?,?)";
-			 Conexion con = new Conexion();
-			    con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
-			    con.setUsername("arc");
-			    con.setPassword("arc");
-			    con.Conectar();
+			Conexion con = new Conexion();
+    		con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+            con.setUsername("DBRENTAR");
+            con.setPassword("dbrentar");
+            con.Conectar();
 			
 			
 			System.out.println(Insercion);

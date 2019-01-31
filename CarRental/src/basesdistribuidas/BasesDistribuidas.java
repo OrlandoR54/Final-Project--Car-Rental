@@ -24,8 +24,8 @@ public class BasesDistribuidas {
         SentenciasCRUD s = new SentenciasCRUD();
         
         con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
-        con.setUsername("arc");
-        con.setPassword("arc");
+        con.setUsername("DBRENTAR");
+        con.setPassword("dbrentar");
         con.Conectar();
         
         if (con.getConexion() != null){
