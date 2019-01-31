@@ -24,7 +24,89 @@ public class SentenciasCRUD {
     private ResultSet resultado = null;
     private PreparedStatement psentencia = null;
     
+    /*
+     * select us_id+1
+	  from ren_clientes 
+	  where us_id = (select max(us_id) 
+               		 from ren_clientes);
+     */
     
+    public int seleccionIDCliente() {
+    	int res = 0;
+    	try {
+    		Conexion con = new Conexion();
+		    con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+		    con.setUsername("arc");
+		    con.setPassword("arc");
+		    con.Conectar();
+		    
+    		psentencia = con.getConexion().prepareStatement(" select us_id\n" + 
+    				"	  from arc.ren_clientes \n" + 
+    				"	  where us_id = (select max(us_id) \n" + 
+    				"                    from arc.ren_clientes)");
+    		resultado = psentencia.executeQuery();
+    		while(resultado.next()) {
+    			res = resultado.getInt("US_ID");
+    		}
+    		
+    	
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+ 	   return res;
+    }
+    public int seleccionIDTarjeta() {
+    	int res = 0;
+    	try {
+    		Conexion con = new Conexion();
+		    con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+		    con.setUsername("arc");
+		    con.setPassword("arc");
+		    con.Conectar();
+		    
+    		psentencia = con.getConexion().prepareStatement(" select tar_id\n" + 
+    				"	  from arc.ren_tarjetas \n" + 
+    				"	  where tar_id = (select max(tar_id) \n" + 
+    				"                    from arc.ren_tarjetas)");
+    		resultado = psentencia.executeQuery();
+    		while(resultado.next()) {
+    			res = resultado.getInt("TAR_ID");
+    		}
+    		
+    	
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+ 	   return res;
+    }
+    
+    public int seleccionIDLicencia() {
+    	int res = 0;
+    	try {
+    		Conexion con = new Conexion();
+		    con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+		    con.setUsername("arc");
+		    con.setPassword("arc");
+		    con.Conectar();
+		    
+    		psentencia = con.getConexion().prepareStatement(" select lic_id\n" + 
+    				"	  from arc.ren_licencias \n" + 
+    				"	  where lic_id = (select max(lic_id) \n" + 
+    				"                    from arc.ren_licencias)");
+    		resultado = psentencia.executeQuery();
+    		while(resultado.next()) {
+    			res = resultado.getInt("LIC_ID");
+    		}
+    		
+    	
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+ 	   return res;
+    }
    public void insertarCliente(Cliente cliente) {
 	   try {
 		   String insertarCliente = "INSERT INTO ren_clientes VALUES"
@@ -54,6 +136,8 @@ public class SentenciasCRUD {
 	   
 	   
    }
+   
+   
     
     
     public void insertarTarjeta(Tarjeta tarjeta) {

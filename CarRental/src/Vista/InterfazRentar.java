@@ -30,7 +30,6 @@ public class InterfazRentar extends JFrame implements ActionListener {
 	private final JTextField txtBuscar = new JTextField();
 	private JTextField txtNombre;
 	private JTextField txtApellido;
-	private JTextField txtLicencia;
 	private JTextField txtCedula;
 	private JTextField txtDireccion;
 	
@@ -106,11 +105,6 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		contentPane.add(txtApellido);
 		txtApellido.setColumns(10);
 		
-		txtLicencia = new JTextField();
-		txtLicencia.setBounds(105, 171, 147, 20);
-		contentPane.add(txtLicencia);
-		txtLicencia.setColumns(10);
-		
 		txtCedula = new JTextField();
 		txtCedula.setBounds(81, 107, 128, 20);
 		contentPane.add(txtCedula);
@@ -142,7 +136,7 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		contentPane.add(lblLicencia_1);
 		
 		JLabel lblTipoDeSangre = new JLabel("Tipo de sangre: ");
-		lblTipoDeSangre.setBounds(10, 209, 124, 14);
+		lblTipoDeSangre.setBounds(10, 170, 124, 14);
 		contentPane.add(lblTipoDeSangre);
 		
 		JCtipoSangre = new JComboBox();
@@ -154,29 +148,25 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		JCtipoSangre.addItem("B+");
 		JCtipoSangre.addItem("AB-");
 		JCtipoSangre.addItem("AB+");
-		JCtipoSangre.setBounds(144, 202, 108, 20);
+		JCtipoSangre.setBounds(144, 170, 108, 20);
 		contentPane.add(JCtipoSangre);
 		
 		JLabel lblTipoDeLicencia = new JLabel("Tipo de licencia: ");
-		lblTipoDeLicencia.setBounds(10, 234, 124, 14);
+		lblTipoDeLicencia.setBounds(10, 209, 124, 14);
 		contentPane.add(lblTipoDeLicencia);
 		
 		JCtipoLicencia = new JComboBox();
 		JCtipoLicencia.addItem("B");
 		JCtipoLicencia.addItem("F");
-		JCtipoLicencia.setBounds(144, 233, 108, 20);
+		JCtipoLicencia.setBounds(144, 201, 108, 20);
 		contentPane.add(JCtipoLicencia);
 		
-		JLabel lblNumero = new JLabel("numero: ");
-		lblNumero.setBounds(10, 174, 61, 14);
-		contentPane.add(lblNumero);
-		
 		JLabel lblFechaDeExpiracion = new JLabel("fecha de expiracion: ");
-		lblFechaDeExpiracion.setBounds(10, 265, 128, 14);
+		lblFechaDeExpiracion.setBounds(10, 239, 128, 14);
 		contentPane.add(lblFechaDeExpiracion);
 		
 		txtfecha_Expiracion = new JTextField();
-		txtfecha_Expiracion.setBounds(144, 262, 108, 20);
+		txtfecha_Expiracion.setBounds(144, 236, 108, 20);
 		contentPane.add(txtfecha_Expiracion);
 		txtfecha_Expiracion.setColumns(10);
 		
@@ -213,7 +203,7 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		txtTitular.setColumns(10);
 		
 		JButton btnRealizarContrato = new JButton("Realizar Contrato");
-		btnRealizarContrato.setBounds(229, 313, 124, 23);
+		btnRealizarContrato.setBounds(229, 313, 139, 23);
 		contentPane.add(btnRealizarContrato);
 	
 	}
@@ -248,10 +238,13 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		
 		SentenciasCRUD insertar = new SentenciasCRUD();
+		/**
+		 * Insercion del cliente en la base de datos
+		 */
 		
 		Cliente cliente = new Cliente();
 		
-		int cliID = 8;
+		int cliID = insertar.seleccionIDCliente() +1;
 		cliente.setCliID(cliID);
 		
 		String nombre = txtNombre.getText();
@@ -267,13 +260,14 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		cliente.setDireccion(direccion);
 		
 		insertar.insertarCliente(cliente);
+		/**
+		 * 	Insercion de los datos de la tarjeta en la base de datos
+		 */
 		
 		
-		
-		/*
 		Tarjeta tarjeta = new Tarjeta();
 		
-		int numT = 1;
+		int numT = insertar.seleccionIDTarjeta()+1;
 		tarjeta.setTarjetaID(numT);
 		
 		String tipoT = String.valueOf(JCtipoTarjeta.getSelectedItem());
@@ -285,18 +279,20 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		String titular = txtTitular.getText();
 		tarjeta.setTitular(titular);
 		
-		int numCliID = 1;
+		int numCliID = insertar.seleccionIDCliente();
 		tarjeta.setTarCliID(numCliID);
 		
-		insertar.insertarTarjeta(tarjeta);*/
+		insertar.insertarTarjeta(tarjeta);
 		
 		
+		/**
+		 * Insercion de los datos de los clientes en la base de datos
+		 * 
+		 */
 		
-		/*
-		 * Insertar la licencia del cliente a la base datos
 		Licencia licencia = new Licencia();
 		
-		int numero = Integer.parseInt(txtLicencia.getText());
+		int numero = insertar.seleccionIDLicencia()+1;
 		licencia.setNumero(numero);
 		
 		String sangre = String.valueOf(JCtipoSangre.getSelectedItem());
@@ -305,17 +301,13 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		String tLicencia = String.valueOf(JCtipoLicencia.getSelectedItem());
 		licencia.setTipoLicencia(tLicencia);
 		
-		int num = 7;
+		int num = insertar.seleccionIDCliente();
 		licencia.setIdCliente(num);
 		
 		String fExpiracion = txtfecha_Expiracion.getText();
 		licencia.setFechaExpiracion(fExpiracion);
 		
-		insertar.InsertarLicencia(licencia);*/
-		
-		
-		
-		
+		insertar.InsertarLicencia(licencia);
 		
 		
 		
