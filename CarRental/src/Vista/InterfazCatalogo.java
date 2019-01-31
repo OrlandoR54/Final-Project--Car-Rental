@@ -8,9 +8,14 @@ package Vista;
 import Controlador.Controlador;
 import ec.edu.ups.conexion.Conexion;
 import ec.edu.ups.conexion.SentenciasCRUD;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modelo.Catalogo_Vehiculo;
 
@@ -28,8 +33,26 @@ public class InterfazCatalogo extends javax.swing.JFrame {
      */
     public InterfazCatalogo() {
         initComponents();
-        Conexion con = null;
-        sentencia_catalogo(con);
+        tblcatalogo.addMouseListener(new MouseAdapter() {
+            
+            
+            public void mousePressed(MouseEvent Mouse_evt){
+                JTable table = (JTable ) Mouse_evt.getSource();
+                Point point= Mouse_evt.getPoint();
+                int row = table.rowAtPoint(point);
+                if(Mouse_evt.getClickCount()==2){
+                    
+                    JOptionPane.showMessageDialog(null, "El vehiculo con placa : "+tblcatalogo.getValueAt(tblcatalogo.getSelectedRow(), 3).toString()+ "  fue seleccionado para alquiler");
+                }
+                
+                
+            
+            }
+            });
+        
+       
+       
+      
         dmt=(DefaultTableModel) tblcatalogo.getModel();
         
         /**
@@ -46,8 +69,7 @@ public class InterfazCatalogo extends javax.swing.JFrame {
         
     }
     
-   
-
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,7 +94,7 @@ public class InterfazCatalogo extends javax.swing.JFrame {
         txtFechaDevolucion = new javax.swing.JTextField();
         btnInicio = new javax.swing.JButton();
         btnContrato = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        catalogo = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -80,7 +102,7 @@ public class InterfazCatalogo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("THRIFTTY-RENTAR");
-        setMinimumSize(new java.awt.Dimension(800, 800));
+        setMinimumSize(new java.awt.Dimension(1300, 450));
         getContentPane().setLayout(null);
 
         tblcatalogo.setModel(new javax.swing.table.DefaultTableModel(
@@ -103,7 +125,7 @@ public class InterfazCatalogo extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblcatalogo);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(200, -10, 620, 360);
+        jScrollPane1.setBounds(250, 0, 1030, 400);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -168,19 +190,19 @@ public class InterfazCatalogo extends javax.swing.JFrame {
         getContentPane().add(btnContrato);
         btnContrato.setBounds(120, 300, 117, 23);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        catalogo.setText("catalogo");
+        catalogo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                catalogoActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(150, 230, 73, 23);
+        getContentPane().add(catalogo);
+        catalogo.setBounds(83, 240, 100, 30);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/imagen/Fondo categoria.jpg"))); // NOI18N
         jLabel3.setText("jLabel3");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(-20, -20, 630, 360);
+        jLabel3.setBounds(-20, -20, 280, 420);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -219,11 +241,61 @@ public class InterfazCatalogo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboTarifaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void catalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_catalogoActionPerformed
         
- 
-    }//GEN-LAST:event_jButton1ActionPerformed
- 
+        Conexion con = new Conexion();
+        con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+        con.setUsername("DBCARENTAL");
+        con.setPassword("dbcarrental");
+        con.Conectar();
+        
+        
+        if (con.getConexion() != null){
+            System.out.println("Base de datos conectada");
+        
+            
+        }
+        
+        
+              try{
+            psentencia = con.getConexion().prepareStatement("   select c.cate_nombre,c.cate__precio_dia_controlado,c.cate__precio_adicional_km,v.veh_placa,v.veh_color,mo.mod_nombre,m.mar_nombre\n" +
+"   from ren_categorias c , ren_vehiculos v, ren_marcas m ,ren_modelos mo\n" +
+"   where c.cate_id=v.ren_categorias_cate_id and m.mar_id=mo.ren_marcas_mar_id and v.ren_modelos_mod_id=mo.mod_id");
+     
+            resultado = psentencia.executeQuery();
+            
+            //Se presenta el resultado
+            while (resultado.next()){
+        o[0]=resultado.getString(1);
+        o[1]=resultado.getDouble(2);
+        o[2]=resultado.getDouble(3);
+        o[3]=resultado.getString(4);
+        o[4]=resultado.getString(5);
+        o[5]=resultado.getString(6);
+        o[6]=resultado.getString(7);
+        
+        dmt.addRow(o);
+            }
+            con.CerrarConexion();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }    
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      
+    
+      
+
+    }//GEN-LAST:event_catalogoActionPerformed
+  
+    public void sentencia(Conexion con) {
+        
+    }
+    
+  
+   
+
+
     /**
      * @param args the command line arguments
      */
@@ -264,8 +336,8 @@ public class InterfazCatalogo extends javax.swing.JFrame {
     private javax.swing.JButton btnInicio;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JButton catalogo;
     private javax.swing.JComboBox<String> comboTarifa;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -283,35 +355,8 @@ public class InterfazCatalogo extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
    private ResultSet resultado = null;
-    private PreparedStatement psentencia = null;
+   private PreparedStatement psentencia = null;
 
-    private void sentencia_catalogo(Conexion con) {
-        
-               try{
-            psentencia = con.getConexion().prepareStatement("   select c.cate_nombre,c.cate__precio_dia_controlado,c.cate__precio_adicional_km,v.veh_placa,v.veh_color,mo.mod_nombre,m.mar_nombre\n" +
-"   from ren_categorias c , ren_vehiculos v, ren_marcas m ,ren_modelos mo\n" +
-"   where c.cate_id=v.ren_categorias_cate_id and m.mar_id=mo.ren_marcas_mar_id and v.ren_modelos_mod_id=mo.mod_id");
-     
-            resultado = psentencia.executeQuery();
-            
-            //Se presenta el resultado
-            while (resultado.next()){
-                o[0]=resultado.getString("cate_nombre");
-        o[1]=resultado.getDouble("cate__precio_dia_controlado");
-        o[2]=resultado.getDouble("cate__precio_adicional_km");
-        o[3]=resultado.getString("veh_placa");
-        o[4]=resultado.getString("veh_color");
-        o[5]=resultado.getString("mod_nombre");
-        o[6]=resultado.getString(" mar_nombre");
-            }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        }    
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-     
     public ResultSet getResultado() {
         return resultado;
     }
@@ -327,7 +372,6 @@ public class InterfazCatalogo extends javax.swing.JFrame {
     public void setPsentencia(PreparedStatement psentencia) {
         this.psentencia = psentencia;
     }
-    
-
-
+   
+   
 }
