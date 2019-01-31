@@ -1,93 +1,46 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
-import java.util.ArrayList;
-
-/**
- *
- * @author israelchuchuca
- */
 public class Cliente {
-    
-    private int IDcliente;
-    private String cli_nombre;
-    private String cli_apellido;
-    private String cli_cedula;
-    private String cli_direccion;
-  
-    private ArrayList tarjetas;
-    private ArrayList contratos;
-
-    public Cliente() {
-        tarjetas= new ArrayList<Tarjeta>();
-        contratos = new ArrayList<Contrato>();
-    }
-
+	
+	private int cliID;
+	private String nombre;
+	private String apellido;
+	private String cedula;
+	private String direccion;
+	
+	
+	public int getCliID() {
+		return cliID;
+	}
+	public void setCliID(int cliID) {
+		this.cliID = cliID;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getApellido() {
+		return apellido;
+	}
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+	public String getCedula() {
+		return cedula;
+	}
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
+	}
+	public String getDireccion() {
+		return direccion;
+	}
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+	
+	
 	
 
-	public int getIDcliente() {
-		return IDcliente;
-	}
-
-
-
-	public void setIDcliente(int iDcliente) {
-		IDcliente = iDcliente;
-	}
-
-
-
-	public String getCli_nombre() {
-		return cli_nombre;
-	}
-
-	public void setCli_nombre(String cli_nombre) {
-		this.cli_nombre = cli_nombre;
-	}
-
-	public String getCli_apellido() {
-		return cli_apellido;
-	}
-
-	public void setCli_apellido(String cli_apellido) {
-		this.cli_apellido = cli_apellido;
-	}
-
-	public String getCli_cedula() {
-		return cli_cedula;
-	}
-
-	public void setCli_cedula(String cli_cedula) {
-		this.cli_cedula = cli_cedula;
-	}
-
-	public String getCli_direccion() {
-		return cli_direccion;
-	}
-
-	public void setCli_direccion(String cli_direccion) {
-		this.cli_direccion = cli_direccion;
-	}
-
-	public ArrayList getTarjetas() {
-		return tarjetas;
-	}
-
-	public void setTarjetas(ArrayList tarjetas) {
-		this.tarjetas = tarjetas;
-	}
-
-	public ArrayList getContratos() {
-		return contratos;
-	}
-
-	public void setContratos(ArrayList contratos) {
-		this.contratos = contratos;
-	}
-
-    
 }

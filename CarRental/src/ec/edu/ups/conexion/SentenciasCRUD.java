@@ -12,6 +12,7 @@ import java.sql.Statement;
 
 import modelo.Cliente;
 import modelo.Licencia;
+import modelo.Tarjeta;
 
 /**
  * Clase para realizar consultas que se requiere a la base
@@ -23,7 +24,65 @@ public class SentenciasCRUD {
     private ResultSet resultado = null;
     private PreparedStatement psentencia = null;
     
-   
+    
+   public void insertarCliente(Cliente cliente) {
+	   try {
+		   String insertarCliente = "INSERT INTO ren_clientes VALUES"
+				   					+ "(?,?,?,?,?)";
+		   
+		   Conexion con = new Conexion();
+		   con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+		   con.setUsername("arc");
+		   con.setPassword("arc");
+		   con.Conectar();
+		   
+		   System.out.println(insertarCliente);
+		   
+		   psentencia = con.getConexion().prepareStatement(insertarCliente);
+		   psentencia.setInt(1, cliente.getCliID());
+		   psentencia.setString(2, cliente.getNombre());
+		   psentencia.setString(3, cliente.getApellido());
+		   psentencia.setString(4, cliente.getCedula());
+		   psentencia.setString(5, cliente.getDireccion());
+		   
+		   psentencia.executeQuery();
+		   
+	} catch (SQLException e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	}
+	   
+	   
+   }
+    
+    
+    public void insertarTarjeta(Tarjeta tarjeta) {
+    	try {
+			String insertarTarjeta = "INSERT INTO ren_tarjetas VALUES"
+									  +"(?,?,?,?,?)";
+			Conexion con = new Conexion();
+		    con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+		    con.setUsername("arc");
+		    con.setPassword("arc");
+		    con.Conectar();
+		    
+		    
+		    System.out.println(insertarTarjeta);
+		    
+		    psentencia = con.getConexion().prepareStatement(insertarTarjeta);
+		    psentencia.setInt(1, tarjeta.getTarjetaID());
+		    psentencia.setString(2, tarjeta.getTipoTarjeta());
+		    psentencia.setInt(3, tarjeta.getNumeroTarjeta());
+		    psentencia.setString(4, tarjeta.getTitular());
+		    psentencia.setInt(5, tarjeta.getTarCliID());
+		    
+		    psentencia.executeQuery();
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+    }
     
     public void InsertarLicencia(Licencia licencia) {
     	
@@ -54,37 +113,7 @@ public class SentenciasCRUD {
 		}
     	
     }
-    public void insertarCliente(Cliente cliente) {
-    	try {
-    		String insertarCliente = "INSERT INTO ren_clientes VALUES"
-    								+ "(?,?,?,?,?)";
-    		Conexion con = new Conexion();
-    		con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
-    		con.setUsername("arc");
-    		con.setPassword("arc");
-    		con.Conectar();
-    		
-    		System.out.println(insertarCliente);
-    		
-    		psentencia.setInt(1, cliente.getIDcliente());
-    		psentencia.setString(2, cliente.getCli_nombre());
-    		psentencia.setString(3, cliente.getCli_apellido());
-    		psentencia.setString(4, cliente.getCli_cedula());
-    		psentencia.setString(5, cliente.getCli_direccion());
-    		
-    		psentencia.executeQuery();
-    		
-			
-		} catch (SQLException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-    	
-    }
-    
-    
-    
-    
+   
     
     
     /**

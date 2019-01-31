@@ -7,6 +7,8 @@ public class Tarjeta {
 	private int numeroTarjeta;
 	private String titular;
 	private int tarCliID;
+	
+	
 	public int getTarjetaID() {
 		return tarjetaID;
 	}

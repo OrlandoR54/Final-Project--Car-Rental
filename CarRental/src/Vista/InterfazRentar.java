@@ -38,11 +38,15 @@ public class InterfazRentar extends JFrame implements ActionListener {
 	private JButton btnRentar;
 	private JButton btnRegistrar;
 	private JTextField txtfecha_Expiracion;
-	private JTextField txttarjeta;
-	private JTextField txttitular;
+	private JTextField txtTarjeta;
+	private JTextField txtTitular;
 	
 	private JComboBox JCtipoSangre;
 	private JComboBox JCtipoLicencia;
+	
+	
+	private JComboBox JCtipoTarjeta;
+	
 
 	/**
 	 * Launch the application.
@@ -65,7 +69,7 @@ public class InterfazRentar extends JFrame implements ActionListener {
 	 */
 	public InterfazRentar() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 526, 386);
+		setBounds(100, 100, 602, 386);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -117,7 +121,7 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		contentPane.add(lblDireccion);
 		
 		txtDireccion = new JTextField();
-		txtDireccion.setBounds(348, 57, 128, 20);
+		txtDireccion.setBounds(348, 57, 166, 20);
 		contentPane.add(txtDireccion);
 		txtDireccion.setColumns(10);
 		
@@ -180,9 +184,11 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		lblTipoDeTarjeta.setBounds(272, 209, 96, 14);
 		contentPane.add(lblTipoDeTarjeta);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(378, 206, 98, 20);
-		contentPane.add(comboBox_2);
+		JCtipoTarjeta = new JComboBox();
+		JCtipoTarjeta.addItem("Credito");
+		JCtipoTarjeta.addItem("Debito");
+		JCtipoTarjeta.setBounds(378, 206, 136, 20);
+		contentPane.add(JCtipoTarjeta);
 		
 		JLabel lblNumero_1 = new JLabel("numero:");
 		lblNumero_1.setBounds(272, 174, 66, 14);
@@ -192,19 +198,19 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		lblTarjeta.setBounds(272, 145, 46, 14);
 		contentPane.add(lblTarjeta);
 		
-		txttarjeta = new JTextField();
-		txttarjeta.setBounds(378, 171, 98, 20);
-		contentPane.add(txttarjeta);
-		txttarjeta.setColumns(10);
+		txtTarjeta = new JTextField();
+		txtTarjeta.setBounds(378, 171, 136, 20);
+		contentPane.add(txtTarjeta);
+		txtTarjeta.setColumns(10);
 		
 		JLabel lblTitular = new JLabel("Titular: ");
 		lblTitular.setBounds(272, 239, 46, 14);
 		contentPane.add(lblTitular);
 		
-		txttitular = new JTextField();
-		txttitular.setBounds(378, 236, 98, 20);
-		contentPane.add(txttitular);
-		txttitular.setColumns(10);
+		txtTitular = new JTextField();
+		txtTitular.setBounds(378, 236, 136, 20);
+		contentPane.add(txtTitular);
+		txtTitular.setColumns(10);
 		
 		JButton btnRealizarContrato = new JButton("Realizar Contrato");
 		btnRealizarContrato.setBounds(229, 313, 124, 23);
@@ -240,29 +246,49 @@ public class InterfazRentar extends JFrame implements ActionListener {
 
 	private void rentar() {
 		// TODO Auto-generated method stub
-		SentenciasCRUD insertar = new SentenciasCRUD();
-		Tarjeta tarjeta = new Tarjeta();
 		
-		/*
+		SentenciasCRUD insertar = new SentenciasCRUD();
+		
 		Cliente cliente = new Cliente();
 		
-		
 		int cliID = 8;
-		cliente.setIDcliente(cliID);
+		cliente.setCliID(cliID);
 		
 		String nombre = txtNombre.getText();
-		cliente.setCli_nombre(nombre);
+		cliente.setNombre(nombre);
 		
 		String apellido = txtApellido.getText();
-		cliente.setCli_apellido(apellido);
+		cliente.setApellido(apellido);
 		
-		String cedula = String.valueOf(txtCedula.getText());
-		cliente.setCli_cedula(cedula);
+		String cedula = txtCedula.getText();
+		cliente.setCedula(cedula);
 		
 		String direccion = txtDireccion.getText();
-		cliente.setCli_cedula(direccion);
+		cliente.setDireccion(direccion);
 		
-		insertar.insertarCliente(cliente);*/
+		insertar.insertarCliente(cliente);
+		
+		
+		
+		/*
+		Tarjeta tarjeta = new Tarjeta();
+		
+		int numT = 1;
+		tarjeta.setTarjetaID(numT);
+		
+		String tipoT = String.valueOf(JCtipoTarjeta.getSelectedItem());
+		tarjeta.setTipoTarjeta(String.valueOf(tipoT));
+		
+		int numTar =Integer.parseInt(txtTarjeta.getText());
+		tarjeta.setNumeroTarjeta(numTar);
+		
+		String titular = txtTitular.getText();
+		tarjeta.setTitular(titular);
+		
+		int numCliID = 1;
+		tarjeta.setTarCliID(numCliID);
+		
+		insertar.insertarTarjeta(tarjeta);*/
 		
 		
 		
