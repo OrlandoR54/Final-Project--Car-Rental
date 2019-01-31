@@ -5,6 +5,7 @@
  */
 package basesdistribuidas;
 
+import Vista.InterfazCatalogo;
 import ec.edu.ups.conexion.Conexion;
 import ec.edu.ups.conexion.SentenciasCRUD;
 
@@ -22,6 +23,7 @@ public class BasesDistribuidas {
         Conexion con = new Conexion();
         SentenciasCRUD s = new SentenciasCRUD();
         
+        
         con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
         con.setUsername("DBCARENTAL");
         con.setPassword("dbcarrental");
@@ -30,11 +32,15 @@ public class BasesDistribuidas {
         if (con.getConexion() != null){
             System.out.println("Base de datos conectada");
             
+            
+            
+            
             //Se consulta los datos de un empleado
             
             
             //Se inserta el nuevo pais
             //s.InsertarPais(con, "EC", "ECUADOR", 2);
+            
             
             
             //Se consulta los datos del pais

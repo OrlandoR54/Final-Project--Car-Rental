@@ -33,6 +33,9 @@ public class InterfazCatalogo extends javax.swing.JFrame {
      */
     public InterfazCatalogo() {
         initComponents();
+        
+         InterfazRentar r = new InterfazRentar();
+         
         tblcatalogo.addMouseListener(new MouseAdapter() {
             
             
@@ -42,7 +45,16 @@ public class InterfazCatalogo extends javax.swing.JFrame {
                 int row = table.rowAtPoint(point);
                 if(Mouse_evt.getClickCount()==2){
                     
+                   
                     JOptionPane.showMessageDialog(null, "El vehiculo con placa : "+tblcatalogo.getValueAt(tblcatalogo.getSelectedRow(), 3).toString()+ "  fue seleccionado para alquiler");
+                    placa=tblcatalogo.getValueAt(tblcatalogo.getSelectedRow(), 3).toString();
+                    modelo=tblcatalogo.getValueAt(tblcatalogo.getSelectedRow(), 4).toString();
+                    color=tblcatalogo.getValueAt(tblcatalogo.getSelectedRow(), 5).toString();
+                    
+                    r.catalogo(placa, modelo, color);
+                   
+                    
+                
                 }
                 
                 
@@ -187,6 +199,11 @@ public class InterfazCatalogo extends javax.swing.JFrame {
         btnInicio.setBounds(30, 300, 80, 23);
 
         btnContrato.setText("Realizar Contrato");
+        btnContrato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContratoActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnContrato);
         btnContrato.setBounds(120, 300, 117, 23);
 
@@ -287,7 +304,13 @@ public class InterfazCatalogo extends javax.swing.JFrame {
       
 
     }//GEN-LAST:event_catalogoActionPerformed
-  
+
+    private void btnContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContratoActionPerformed
+        // TODO add your handling code here:
+           InterfazRentar rentar = new InterfazRentar();
+        rentar.setVisible(true);
+    }//GEN-LAST:event_btnContratoActionPerformed
+ 
     public void sentencia(Conexion con) {
         
     }
@@ -356,6 +379,9 @@ public class InterfazCatalogo extends javax.swing.JFrame {
 
    private ResultSet resultado = null;
    private PreparedStatement psentencia = null;
+   private String placa;
+   private String color;
+   private String modelo;
 
     public ResultSet getResultado() {
         return resultado;

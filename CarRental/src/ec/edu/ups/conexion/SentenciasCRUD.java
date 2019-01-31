@@ -10,16 +10,221 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import modelo.Cliente;
+import modelo.Licencia;
+import modelo.Tarjeta;
+
 /**
  * Clase para realizar consultas que se requiere a la base
  * @author oracle
  */
+
 public class SentenciasCRUD {
     
     private ResultSet resultado = null;
     private PreparedStatement psentencia = null;
     
+    /*
+     * select us_id+1
+	  from ren_clientes 
+	  where us_id = (select max(us_id) 
+               		 from ren_clientes);
+     */
     
+    public int seleccionIDCliente() {
+    	int res = 0;
+    	try {
+    		Conexion con = new Conexion();
+		         con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+        con.setUsername("DBCARENTAL");
+        con.setPassword("dbcarrental");
+        con.Conectar();
+    		psentencia = con.getConexion().prepareStatement(" select us_id\n" + 
+    				"	  from ren_clientes \n" + 
+    				"	  where us_id = (select max(us_id) \n" + 
+    				"                    from ren_clientes)");
+    		resultado = psentencia.executeQuery();
+    		while(resultado.next()) {
+    			res = resultado.getInt("US_ID");
+    		}
+    		
+    	
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+ 	   return res;
+    }
+    public int seleccionIDTarjeta() {
+    	int res = 0;
+    	try {
+    		Conexion con = new Conexion();
+        con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+        con.setUsername("DBCARENTAL");
+        con.setPassword("dbcarrental");
+        con.Conectar();
+		    
+    		psentencia = con.getConexion().prepareStatement(" select tar_id\n" + 
+    				"	  from ren_tarjetas \n" + 
+    				"	  where tar_id = (select max(tar_id) \n" + 
+    				"                    from ren_tarjetas)");
+    		resultado = psentencia.executeQuery();
+    		while(resultado.next()) {
+    			res = resultado.getInt("TAR_ID");
+    		}
+    		
+    	
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+ 	   return res;
+    }
+    
+    public int seleccionIDLicencia() {
+    	int res = 0;
+    	try {
+    		Conexion con = new Conexion();
+        con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+        con.setUsername("DBCARENTAL");
+        con.setPassword("dbcarrental");
+        con.Conectar();
+		    
+    		psentencia = con.getConexion().prepareStatement(" select lic_id\n" + 
+    				"	  from ren_licencias \n" + 
+    				"	  where lic_id = (select max(lic_id) \n" + 
+    				"                    from ren_licencias)");
+    		resultado = psentencia.executeQuery();
+    		while(resultado.next()) {
+    			res = resultado.getInt("LIC_ID");
+    		}
+    		
+    	
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+ 	   return res;
+    }
+   public void insertarCliente(Cliente cliente) {
+	   try {
+		   String insertarCliente = "INSERT INTO ren_clientes VALUES"
+				   					+ "(?,?,?,?,?)";
+		   
+		   Conexion con = new Conexion();
+		        con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+        con.setUsername("DBCARENTAL");
+        con.setPassword("dbcarrental");
+        con.Conectar();
+		   
+		   System.out.println(insertarCliente);
+		   
+		   psentencia = con.getConexion().prepareStatement(insertarCliente);
+		   psentencia.setInt(1, cliente.getCliID());
+		   psentencia.setString(2, cliente.getNombre());
+		   psentencia.setString(3, cliente.getApellido());
+		   psentencia.setString(4, cliente.getCedula());
+		   psentencia.setString(5, cliente.getDireccion());
+		   
+		   psentencia.executeQuery();
+		   
+	} catch (SQLException e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	}
+	   
+	   
+   }
+   
+   
+    
+    
+    public void insertarTarjeta(Tarjeta tarjeta) {
+    	try {
+			String insertarTarjeta = "INSERT INTO ren_tarjetas VALUES"
+									  +"(?,?,?,?,?)";
+			Conexion con = new Conexion();
+        con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+        con.setUsername("DBCARENTAL");
+        con.setPassword("dbcarrental");
+        con.Conectar();
+		    
+		    
+		    System.out.println(insertarTarjeta);
+		    
+		    psentencia = con.getConexion().prepareStatement(insertarTarjeta);
+		    psentencia.setInt(1, tarjeta.getTarjetaID());
+		    psentencia.setString(2, tarjeta.getTipoTarjeta());
+		    psentencia.setInt(3, tarjeta.getNumeroTarjeta());
+		    psentencia.setString(4, tarjeta.getTitular());
+		    psentencia.setInt(5, tarjeta.getTarCliID());
+		    
+		    psentencia.executeQuery();
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+    }
+    
+    public void InsertarLicencia(Licencia licencia) {
+    	
+    	try {
+			String Insercion = "INSERT INTO ren_licencias VALUES"
+										+ "(?,?,?,?,?)";
+			 Conexion con = new Conexion();
+        con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+        con.setUsername("DBCARENTAL");
+        con.setPassword("dbcarrental");
+        con.Conectar();
+			
+			
+			System.out.println(Insercion);
+			psentencia = con.getConexion().prepareStatement(Insercion);
+			psentencia.setInt(1, licencia.getNumero());
+			psentencia.setString(2, licencia.getTipoSangre());
+			psentencia.setString(3, licencia.getTipoLicencia());
+			psentencia.setInt(4, licencia.getIdCliente());
+			psentencia.setString(5, licencia.getFechaExpiracion());
+			
+			psentencia.executeUpdate();
+										 		
+					
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+    	
+    }
+   
+    
+    
+    /**
+     * Metodo para insertar un nuevo pais
+     * 
+     * @param countryID Identificador del nuevo pais
+     * @param countryName Nombre del pais
+     * @param regionID Identificador de la region 
+     * 
+     */
+    public void InsertarPais(Conexion con, String countryID, 
+    						 String countryName, int regionID){
+        try{
+            String sentenciaInsercion = "INSERT INTO Countries VALUES "
+                    + "(?,?,?)";
+            psentencia = con.getConexion().prepareStatement(sentenciaInsercion);
+            psentencia.setString(1, countryID);
+            psentencia.setString(2, countryName);
+            psentencia.setInt(3, regionID);
+            
+            //Se ejecuta la sentencia de INSERT
+            psentencia.executeUpdate();
+            
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
     /**
      * Metodo para consultar los datos de un empleado
      * @param con Conexion a la base de datos
@@ -50,32 +255,7 @@ public class SentenciasCRUD {
     }
 
     
-    /**
-     * Metodo para insertar un nuevo pais
-     * 
-     * @param countryID Identificador del nuevo pais
-     * @param countryName Nombre del pais
-     * @param regionID Identificador de la region 
-     * 
-     */
-    public void InsertarPais(Conexion con, String countryID, String countryName, int regionID){
-        try{
-            String sentenciaInsercion = "INSERT INTO Countries VALUES "
-                    + "(?,?,?)";
-            psentencia = con.getConexion().prepareStatement(sentenciaInsercion);
-            psentencia.setString(1, countryID);
-            psentencia.setString(2, countryName);
-            psentencia.setInt(3, regionID);
-            
-            //Se ejecuta la sentencia de INSERT
-            psentencia.executeUpdate();
-            
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
-    
+   
     /**
      * Metodo para eliminar un pais acorde a su identificador
      * @param con Conexion a la base de datos

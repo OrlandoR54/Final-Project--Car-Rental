@@ -2,6 +2,7 @@
 package Vista;
 
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,10 +10,19 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import ec.edu.ups.conexion.Conexion;
+import ec.edu.ups.conexion.SentenciasCRUD;
+import modelo.Cliente;
+import modelo.Licencia;
+import modelo.Tarjeta;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+
+import java.sql.PreparedStatement;
 
 public class InterfazRentar extends JFrame implements ActionListener {
 
@@ -20,7 +30,6 @@ public class InterfazRentar extends JFrame implements ActionListener {
 	private final JTextField txtBuscar = new JTextField();
 	private JTextField txtNombre;
 	private JTextField txtApellido;
-	private JTextField txtLicencia;
 	private JTextField txtCedula;
 	private JTextField txtDireccion;
 	
@@ -28,8 +37,15 @@ public class InterfazRentar extends JFrame implements ActionListener {
 	private JButton btnRentar;
 	private JButton btnRegistrar;
 	private JTextField txtfecha_Expiracion;
-	private JTextField txttarjeta;
-	private JTextField txttitular;
+	private JTextField txtTarjeta;
+	private JTextField txtTitular;
+	
+	private JComboBox JCtipoSangre;
+	private JComboBox JCtipoLicencia;
+	
+	
+	private JComboBox JCtipoTarjeta;
+	
 
 	/**
 	 * Launch the application.
@@ -52,7 +68,7 @@ public class InterfazRentar extends JFrame implements ActionListener {
 	 */
 	public InterfazRentar() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 526, 386);
+		setBounds(100, 100, 602, 386);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -89,11 +105,6 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		contentPane.add(txtApellido);
 		txtApellido.setColumns(10);
 		
-		txtLicencia = new JTextField();
-		txtLicencia.setBounds(105, 171, 147, 20);
-		contentPane.add(txtLicencia);
-		txtLicencia.setColumns(10);
-		
 		txtCedula = new JTextField();
 		txtCedula.setBounds(81, 107, 128, 20);
 		contentPane.add(txtCedula);
@@ -104,7 +115,7 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		contentPane.add(lblDireccion);
 		
 		txtDireccion = new JTextField();
-		txtDireccion.setBounds(348, 57, 128, 20);
+		txtDireccion.setBounds(348, 57, 166, 20);
 		contentPane.add(txtDireccion);
 		txtDireccion.setColumns(10);
 		
@@ -125,31 +136,37 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		contentPane.add(lblLicencia_1);
 		
 		JLabel lblTipoDeSangre = new JLabel("Tipo de sangre: ");
-		lblTipoDeSangre.setBounds(10, 209, 124, 14);
+		lblTipoDeSangre.setBounds(10, 170, 124, 14);
 		contentPane.add(lblTipoDeSangre);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(144, 202, 108, 20);
-		contentPane.add(comboBox);
+		JCtipoSangre = new JComboBox();
+		JCtipoSangre.addItem("O-");
+		JCtipoSangre.addItem("O+");
+		JCtipoSangre.addItem("A-");
+		JCtipoSangre.addItem("A+");
+		JCtipoSangre.addItem("B-");
+		JCtipoSangre.addItem("B+");
+		JCtipoSangre.addItem("AB-");
+		JCtipoSangre.addItem("AB+");
+		JCtipoSangre.setBounds(144, 170, 108, 20);
+		contentPane.add(JCtipoSangre);
 		
 		JLabel lblTipoDeLicencia = new JLabel("Tipo de licencia: ");
-		lblTipoDeLicencia.setBounds(10, 234, 124, 14);
+		lblTipoDeLicencia.setBounds(10, 209, 124, 14);
 		contentPane.add(lblTipoDeLicencia);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(144, 233, 108, 20);
-		contentPane.add(comboBox_1);
-		
-		JLabel lblNumero = new JLabel("numero: ");
-		lblNumero.setBounds(10, 174, 61, 14);
-		contentPane.add(lblNumero);
+		JCtipoLicencia = new JComboBox();
+		JCtipoLicencia.addItem("B");
+		JCtipoLicencia.addItem("F");
+		JCtipoLicencia.setBounds(144, 201, 108, 20);
+		contentPane.add(JCtipoLicencia);
 		
 		JLabel lblFechaDeExpiracion = new JLabel("fecha de expiracion: ");
-		lblFechaDeExpiracion.setBounds(10, 265, 128, 14);
+		lblFechaDeExpiracion.setBounds(10, 239, 128, 14);
 		contentPane.add(lblFechaDeExpiracion);
 		
 		txtfecha_Expiracion = new JTextField();
-		txtfecha_Expiracion.setBounds(144, 262, 108, 20);
+		txtfecha_Expiracion.setBounds(144, 236, 108, 20);
 		contentPane.add(txtfecha_Expiracion);
 		txtfecha_Expiracion.setColumns(10);
 		
@@ -157,9 +174,11 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		lblTipoDeTarjeta.setBounds(272, 209, 96, 14);
 		contentPane.add(lblTipoDeTarjeta);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(378, 206, 98, 20);
-		contentPane.add(comboBox_2);
+		JCtipoTarjeta = new JComboBox();
+		JCtipoTarjeta.addItem("Credito");
+		JCtipoTarjeta.addItem("Debito");
+		JCtipoTarjeta.setBounds(378, 206, 136, 20);
+		contentPane.add(JCtipoTarjeta);
 		
 		JLabel lblNumero_1 = new JLabel("numero:");
 		lblNumero_1.setBounds(272, 174, 66, 14);
@@ -169,22 +188,29 @@ public class InterfazRentar extends JFrame implements ActionListener {
 		lblTarjeta.setBounds(272, 145, 46, 14);
 		contentPane.add(lblTarjeta);
 		
-		txttarjeta = new JTextField();
-		txttarjeta.setBounds(378, 171, 98, 20);
-		contentPane.add(txttarjeta);
-		txttarjeta.setColumns(10);
+		txtTarjeta = new JTextField();
+		txtTarjeta.setBounds(378, 171, 136, 20);
+		contentPane.add(txtTarjeta);
+		txtTarjeta.setColumns(10);
 		
 		JLabel lblTitular = new JLabel("Titular: ");
 		lblTitular.setBounds(272, 239, 46, 14);
 		contentPane.add(lblTitular);
 		
-		txttitular = new JTextField();
-		txttitular.setBounds(378, 236, 98, 20);
-		contentPane.add(txttitular);
-		txttitular.setColumns(10);
+		txtTitular = new JTextField();
+		txtTitular.setBounds(378, 236, 136, 20);
+		contentPane.add(txtTitular);
+		txtTitular.setColumns(10);
 		
+		JButton btnRealizarContrato = new JButton("Realizar Contrato");
+		btnRealizarContrato.setBounds(229, 313, 139, 23);
+		contentPane.add(btnRealizarContrato);
+                
+                
 	
 	}
+        
+          
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -215,10 +241,95 @@ public class InterfazRentar extends JFrame implements ActionListener {
 	private void rentar() {
 		// TODO Auto-generated method stub
 		
+		SentenciasCRUD insertar = new SentenciasCRUD();
+		/**
+		 * Insercion del cliente en la base de datos
+		 */
+		
+		Cliente cliente = new Cliente();
+		
+		int cliID = insertar.seleccionIDCliente() +1;
+		cliente.setCliID(cliID);
+		
+		String nombre = txtNombre.getText();
+		cliente.setNombre(nombre);
+		
+		String apellido = txtApellido.getText();
+		cliente.setApellido(apellido);
+		
+		String cedula = txtCedula.getText();
+		cliente.setCedula(cedula);
+		
+		String direccion = txtDireccion.getText();
+		cliente.setDireccion(direccion);
+		
+		insertar.insertarCliente(cliente);
+		/**
+		 * 	Insercion de los datos de la tarjeta en la base de datos
+		 */
+		
+		
+		Tarjeta tarjeta = new Tarjeta();
+		
+		int numT = insertar.seleccionIDTarjeta()+1;
+		tarjeta.setTarjetaID(numT);
+		
+		String tipoT = String.valueOf(JCtipoTarjeta.getSelectedItem());
+		tarjeta.setTipoTarjeta(String.valueOf(tipoT));
+		
+		int numTar =Integer.parseInt(txtTarjeta.getText());
+		tarjeta.setNumeroTarjeta(numTar);
+		
+		String titular = txtTitular.getText();
+		tarjeta.setTitular(titular);
+		
+		int numCliID = insertar.seleccionIDCliente();
+		tarjeta.setTarCliID(numCliID);
+		
+		insertar.insertarTarjeta(tarjeta);
+		
+		
+		/**
+		 * Insercion de los datos de los clientes en la base de datos
+		 * 
+		 */
+		
+		Licencia licencia = new Licencia();
+		
+		int numero = insertar.seleccionIDLicencia()+1;
+		licencia.setNumero(numero);
+		
+		String sangre = String.valueOf(JCtipoSangre.getSelectedItem());
+		licencia.setTipoSangre(sangre);
+		
+		String tLicencia = String.valueOf(JCtipoLicencia.getSelectedItem());
+		licencia.setTipoLicencia(tLicencia);
+		
+		int num = insertar.seleccionIDCliente();
+		licencia.setIdCliente(num);
+		
+		String fExpiracion = txtfecha_Expiracion.getText();
+		licencia.setFechaExpiracion(fExpiracion);
+		
+		insertar.InsertarLicencia(licencia);
+		
+		
+		
+		//cambio de privado a publico las clases: catalogo,contrado,devolucion,vehiculo
 	}
 
 	private void registrar() {
 		// TODO Auto-generated method stub
 		
 	}
-}
+        
+         public void catalogo (String placa, String modelo ,String color ){
+             System.out.println(placa);
+             System.out.println(modelo);
+             System.out.println(color);
+         }
+         
+         }
+    
+        
+
