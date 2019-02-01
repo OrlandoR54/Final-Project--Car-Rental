@@ -5,6 +5,11 @@
  */
 package Vista;
 
+import ec.edu.ups.conexion.Conexion;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author jhon
@@ -35,7 +40,7 @@ public class interfazclientecontrato extends javax.swing.JFrame {
         apellido = new javax.swing.JTextField();
         direccion = new javax.swing.JTextField();
         tarjeta_tipo = new javax.swing.JTextField();
-        licencia = new javax.swing.JTextField();
+        licencia_expiracion = new javax.swing.JTextField();
         tipo_licencia = new javax.swing.JTextField();
         titular_tarjeta = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -51,9 +56,14 @@ public class interfazclientecontrato extends javax.swing.JFrame {
         modeloj = new javax.swing.JTextField();
         colorj = new javax.swing.JTextField();
         placaj = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        garantia = new javax.swing.JTextField();
+        tanque = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(600, 500));
+        setMinimumSize(new java.awt.Dimension(800, 500));
         getContentPane().setLayout(null);
 
         realizar_contrato.setText("Realizar contrato");
@@ -66,10 +76,20 @@ public class interfazclientecontrato extends javax.swing.JFrame {
         realizar_contrato.setBounds(630, 410, 130, 40);
 
         buscar.setText("Buscar");
+        buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarActionPerformed(evt);
+            }
+        });
         getContentPane().add(buscar);
         buscar.setBounds(520, 30, 100, 30);
 
         registrar.setText("registrar cliente");
+        registrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarActionPerformed(evt);
+            }
+        });
         getContentPane().add(registrar);
         registrar.setBounds(60, 400, 130, 40);
         getContentPane().add(cedula);
@@ -88,8 +108,8 @@ public class interfazclientecontrato extends javax.swing.JFrame {
         direccion.setBounds(150, 240, 110, 30);
         getContentPane().add(tarjeta_tipo);
         tarjeta_tipo.setBounds(150, 310, 110, 30);
-        getContentPane().add(licencia);
-        licencia.setBounds(500, 90, 100, 30);
+        getContentPane().add(licencia_expiracion);
+        licencia_expiracion.setBounds(500, 90, 100, 30);
         getContentPane().add(tipo_licencia);
         tipo_licencia.setBounds(500, 140, 100, 30);
 
@@ -103,39 +123,39 @@ public class interfazclientecontrato extends javax.swing.JFrame {
 
         jLabel2.setText("Nombre :");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(70, 110, 50, 20);
+        jLabel2.setBounds(40, 110, 80, 20);
 
-        jLabel3.setText("Licencia");
+        jLabel3.setText("Licencia:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(400, 90, 60, 30);
+        jLabel3.setBounds(370, 90, 90, 30);
 
         jLabel4.setText("Tipo de licencia:");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(370, 150, 76, 14);
+        jLabel4.setBounds(346, 150, 100, 20);
 
         jLabel5.setText("Titular Tarjeta:");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(360, 200, 80, 14);
+        jLabel5.setBounds(350, 200, 90, 20);
 
         jLabel8.setText("Apellido:");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(80, 190, 41, 14);
+        jLabel8.setBounds(41, 190, 80, 20);
 
         jLabel10.setText("Direccion:");
         getContentPane().add(jLabel10);
-        jLabel10.setBounds(80, 250, 47, 14);
+        jLabel10.setBounds(37, 250, 90, 20);
 
-        jLabel11.setText("Tarjeta tipo");
+        jLabel11.setText("Tarjeta tipo:");
         getContentPane().add(jLabel11);
-        jLabel11.setBounds(50, 320, 56, 14);
+        jLabel11.setBounds(26, 320, 80, 20);
 
         jLabel1.setText("Modelo:");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(384, 264, 40, 20);
+        jLabel1.setBounds(374, 264, 50, 20);
 
         jLabel6.setText("Color:");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(390, 320, 29, 14);
+        jLabel6.setBounds(379, 320, 40, 14);
 
         jLabel7.setText("Placa vehiculo");
         getContentPane().add(jLabel7);
@@ -153,11 +173,70 @@ public class interfazclientecontrato extends javax.swing.JFrame {
         getContentPane().add(placaj);
         placaj.setBounds(370, 410, 90, 30);
 
+        jLabel9.setText("Garantia");
+        getContentPane().add(jLabel9);
+        jLabel9.setBounds(680, 80, 80, 40);
+
+        jLabel12.setText("ESTADO TANQUE GASOLINA");
+        getContentPane().add(jLabel12);
+        jLabel12.setBounds(640, 180, 170, 60);
+        getContentPane().add(garantia);
+        garantia.setBounds(650, 130, 110, 40);
+        getContentPane().add(tanque);
+        tanque.setBounds(680, 240, 50, 40);
+
+        jLabel13.setText("F. FULL  - E. EMPTY");
+        getContentPane().add(jLabel13);
+        jLabel13.setBounds(660, 290, 110, 20);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void realizar_contratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizar_contratoActionPerformed
-        // TODO add your handling code here:
+int id_contrato=retornar_id()+1;
+        System.out.println(id_contrato);
+double total_garantia=Double.parseDouble(garantia.getText());
+        System.out.println(total_garantia);
+        System.out.println(fechadedevolucion);
+        System.out.println(fechadeentrega);
+int empleado=1;
+
+        
+        try {
+		   String insertarcontarto= "INSERT INTO ren_contratos VALUES"
+				   					+ "(?,?,?,?,?,?,?,?)";
+		   
+		   Conexion con = new Conexion();
+		    con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+        con.setUsername("DBCARENTAL");
+        con.setPassword("dbcarrental");
+        con.Conectar();
+		   
+		   System.out.println(insertarcontarto);
+		   
+		   psentencia = con.getConexion().prepareStatement("INSERT INTO ren_contratos VALUES"
+				   					+ "(?,?,?,?,?,?,?,?)");
+                   
+		   psentencia.setInt(1, id_contrato);
+		   psentencia.setString(2, fechadeentrega);
+		   psentencia.setString(3, fechadedevolucion);
+		   psentencia.setInt(4, id_cliente);
+		   psentencia.setDouble(5, total_garantia);
+		   psentencia.setInt(6, empleado);
+                    psentencia.setInt(7, id_vehiculo);
+                     psentencia.setString(8, tanque.getText());
+                     
+                     
+		   psentencia.executeQuery();
+		   
+	} catch (SQLException e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	}
+
+// TODO add your handling code here:
+
+
     }//GEN-LAST:event_realizar_contratoActionPerformed
 
     private void titular_tarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titular_tarjetaActionPerformed
@@ -171,12 +250,119 @@ public class interfazclientecontrato extends javax.swing.JFrame {
     private void modelojActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modelojActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_modelojActionPerformed
-  public void catalogo (String placa, String modelo ,String color ){
+
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        // TODO add your handling code here:
+          Conexion con = new Conexion();
+        con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+        con.setUsername("DBCARENTAL");
+        con.setPassword("dbcarrental");
+        con.Conectar();
+        
+        
+        if (con.getConexion() != null){
+            System.out.println("Base de datos conectada");
+        
+            
+        }
+        
+        
+              try{
+            psentencia = con.getConexion().prepareStatement("  select v.veh_id,c.us_id,c.us_cedula,c.us_nombre,c.us_apellido,c.us_direccion,t.tar_tipo_de_tarjeta,l.lic_fecha_expiracion,l.lic_tipo_de_licencia,t.tar_titular\n" +
+"from ren_clientes c,ren_licencias l,ren_tarjetas t,ren_vehiculos v\n" +
+"where c.us_id=l.ren_clientes_us_id and t.ren_clientes_us_id(+)=c.us_id and c.us_cedula=? and v.veh_placa=?");
+     
+            
+            psentencia.setString(1,cedula.getText());
+            psentencia.setString(2, placaj.getText());
+            
+            resultado = psentencia.executeQuery();
+            
+            //Se presenta el resultado
+            while (resultado.next()){
+                
+                 id_vehiculo=resultado.getInt(1);
+                id_cliente=resultado.getInt(2);
+        nombre.setText(resultado.getString(4));
+        apellido.setText(resultado.getString(5));
+        direccion.setText(resultado.getString(6));
+     
+            tarjeta_tipo.setText(resultado.getString(7));
+              licencia_expiracion.setText(resultado.getString(8));
+                tipo_licencia.setText(resultado.getString(9));
+                  titular_tarjeta.setText(resultado.getString(10));
+                  
+     
+        
+       
+            }
+            con.CerrarConexion();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }    
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      
+  
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_buscarActionPerformed
+
+    private void registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarActionPerformed
+        // TODO add your handling code here:
+        InterfazRentar registar= new InterfazRentar();
+        registar.setVisible(true);
+        
+        
+        
+        
+    }//GEN-LAST:event_registrarActionPerformed
+  
+    public int retornar_id (){
+    
+    int res = 0;
+    	try {
+        Conexion con = new Conexion();
+        con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+        con.setUsername("DBCARENTAL");
+        con.setPassword("dbcarrental");
+        con.Conectar();
+		    
+    		psentencia = con.getConexion().prepareStatement("select max(con_id)\n" +
+                  "from ren_contratos");
+    		resultado = psentencia.executeQuery();
+    		while(resultado.next()) {
+    			res = resultado.getInt(1);
+    		}
+    		
+    	
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+ 	   return res;
+    
+    }
+    
+    public void catalogo (String placa, String modelo ,String color ){
              modeloj.setText(modelo);
              placaj.setText(placa);
              colorj.setText(color);
              
          }
+    public void recuperarfechas (String fechaentrega,String fechadevolucion){
+    fechadeentrega=fechaentrega;
+    fechadedevolucion=fechadevolucion;
+    
+    }
+    public void recuperar_id_empleado(int id){
+        id_empleado=id;
+        
+    
+    }
     /**
      * @param args the command line arguments
      */
@@ -218,9 +404,12 @@ public class interfazclientecontrato extends javax.swing.JFrame {
     private javax.swing.JTextField cedula;
     private javax.swing.JTextField colorj;
     private javax.swing.JTextField direccion;
+    private javax.swing.JTextField garantia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -228,14 +417,45 @@ public class interfazclientecontrato extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField licencia;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField licencia_expiracion;
     private javax.swing.JTextField modeloj;
     private javax.swing.JTextField nombre;
     private javax.swing.JTextField placaj;
     private javax.swing.JButton realizar_contrato;
     private javax.swing.JButton registrar;
+    private javax.swing.JTextField tanque;
     private javax.swing.JTextField tarjeta_tipo;
     private javax.swing.JTextField tipo_licencia;
     private javax.swing.JTextField titular_tarjeta;
     // End of variables declaration//GEN-END:variables
+private int id_cliente;
+private int id_vehiculo;
+private String fechadeentrega;
+private String fechadedevolucion;
+private int id_empleado;
+
+
+
+ private ResultSet resultado = null;
+   private PreparedStatement psentencia = null;
+
+
+ public ResultSet getResultado() {
+        return resultado;
+    }
+
+    public void setResultado(ResultSet resultado) {
+        this.resultado = resultado;
+    }
+
+    public PreparedStatement getPsentencia() {
+        return psentencia;
+    }
+
+    public void setPsentencia(PreparedStatement psentencia) {
+        this.psentencia = psentencia;
+    }
+
+
 }
